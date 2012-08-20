@@ -1,0 +1,60 @@
+<fieldset>
+  <%= form_for(@product, :html=>{:class=>"form-horizontal"}) do |f| %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul></ul>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label 'Nombre', :class=>"control-label" %>
+  <div class="controls">
+      <%= f.text_field :name, :class =>"input-xlarge"%>
+      </div>
+   </div>
+
+  <div class="control-group">
+    <%= f.label :sku, :class=>"control-label" %>
+  <div class="controls">
+    <%= f.text_area :sku, :class=>"input-xlarge", :rows=>4 %>
+  </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label 'Fecha de Caducidad', :class=>"control-label" %>
+   <div class="controls">
+     <%= f.text_field :date %>
+     </div>
+   </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#product_date').datepicker();
+        $('#product_date').datepicker('option', {dateFormat: 'yy-mm-dd'});
+        $("#startDate").datepicker({dateFormat: 'yy-mm-dd'});
+
+    });
+
+  </script>
+
+  <div class="control-group">
+    <%= f.label 'Unidad', :class=>"control-label" %>
+    <div class="controls">
+      <%= f.text_field :units, :class=>"input-xlarge"%>
+    </div>
+  </div>
+    <div class="control-group">
+    <%= f.label 'Precio', :class=>"control-label"%>
+    <div class="controls">
+      <%= f.number_field :price, :class=>"input-xlarge" %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit 'Crear', :class=>"btn btn-primary"%>
+<%= link_to 'Back', products_path, :class =>"btn" %>
+
+  </div>
+<% end %>
+</fieldset>

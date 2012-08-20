@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  order: 
+  product: 
+  quantity_send: MyString
+  quantity_receive: MyString
+  note: MyText
+
+two:
+  order: 
+  product: 
+  quantity_send: MyString
+  quantity_receive: MyString
+  note: MyText

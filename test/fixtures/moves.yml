@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  product: 
+  order: 
+  branch: 
+  entry: 1
+  output: 1
+  existence: 1
+  amount_d: 9.99
+  amount_h: 9.99
+  amount_s: 9.99
+  date_move: 2012-08-17 16:35:06
+
+two:
+  product: 
+  order: 
+  branch: 
+  entry: 1
+  output: 1
+  existence: 1
+  amount_d: 9.99
+  amount_h: 9.99
+  amount_s: 9.99
+  date_move: 2012-08-17 16:35:06

@@ -1,0 +1,27 @@
+<form class="well">
+<p id="notice"><%= notice %></p>
+
+<p style="font-size:15px">
+  <b>Nombre:</b>
+  <%= @product.name %>
+</p>
+
+<p style="font-size:15px">
+  <b>Sku:</b>
+  <%= @product.sku %>
+</p>
+
+<p style="font-size:15px">
+  <b>Fecha de Caducidad:</b>
+  <%= @product.date %>
+</p>
+
+<p style="font-size:15px">
+  <b>Unidad:</b>
+  <%= @product.units %>
+</p>
+
+
+<%= link_to 'Edit', edit_product_path(@product), :class=>"btn btn-primary" %> |
+<%= link_to 'Back', products_path, :class=>"btn" %>
+</form>

@@ -1,0 +1,57 @@
+<%= form_for(@move) do |f| %>
+  <% if @move.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@move.errors.count, "error") %> prohibited this move from being saved:</h2>
+
+      <ul>
+      <% @move.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :product %><br />
+    <%= f.text_field :product %>
+  </div>
+  <div class="field">
+    <%= f.label :order %><br />
+    <%= f.text_field :order %>
+  </div>
+  <div class="field">
+    <%= f.label :branch %><br />
+    <%= f.text_field :branch %>
+  </div>
+  <div class="field">
+    <%= f.label :entry %><br />
+    <%= f.number_field :entry %>
+  </div>
+  <div class="field">
+    <%= f.label :output %><br />
+    <%= f.number_field :output %>
+  </div>
+  <div class="field">
+    <%= f.label :existence %><br />
+    <%= f.number_field :existence %>
+  </div>
+  <div class="field">
+    <%= f.label :amount_d %><br />
+    <%= f.text_field :amount_d %>
+  </div>
+  <div class="field">
+    <%= f.label :amount_h %><br />
+    <%= f.text_field :amount_h %>
+  </div>
+  <div class="field">
+    <%= f.label :amount_s %><br />
+    <%= f.text_field :amount_s %>
+  </div>
+  <div class="field">
+    <%= f.label :date_move %><br />
+    <%= f.datetime_select :date_move %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

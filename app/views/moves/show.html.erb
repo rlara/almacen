@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Product:</b>
+  <%= @move.product %>
+</p>
+
+<p>
+  <b>Order:</b>
+  <%= @move.order %>
+</p>
+
+<p>
+  <b>Branch:</b>
+  <%= @move.branch %>
+</p>
+
+<p>
+  <b>Entry:</b>
+  <%= @move.entry %>
+</p>
+
+<p>
+  <b>Output:</b>
+  <%= @move.output %>
+</p>
+
+<p>
+  <b>Existence:</b>
+  <%= @move.existence %>
+</p>
+
+<p>
+  <b>Amount d:</b>
+  <%= @move.amount_d %>
+</p>
+
+<p>
+  <b>Amount h:</b>
+  <%= @move.amount_h %>
+</p>
+
+<p>
+  <b>Amount s:</b>
+  <%= @move.amount_s %>
+</p>
+
+<p>
+  <b>Date move:</b>
+  <%= @move.date_move %>
+</p>
+
+
+<%= link_to 'Edit', edit_move_path(@move) %> |
+<%= link_to 'Back', moves_path %>

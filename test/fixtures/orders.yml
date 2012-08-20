@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  branch: 
+  status: MyString
+  destination: MyString
+  user_id: MyString
+  dealer: MyString
+
+two:
+  branch: 
+  status: MyString
+  destination: MyString
+  user_id: MyString
+  dealer: MyString

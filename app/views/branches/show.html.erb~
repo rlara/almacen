@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<p style="font-size:15px">
+  <b>Nombre:</b>
+  <%= @branch.name %>
+</p>
+
+<p style="font-size:15px">
+  <b>Ubicación:</b>
+  <%= @branch.location %>
+</p>
+
+
+<div class="row">
+      <div class="span4" style="float:right">
+        <h2>Dar de alta un movimiento</h2>
+        <%=link_to "Orden", new_branch_order_path(@branch), :class=>"btn btn-primary" %>
+        <!--link para dar de altaa un abastecimiento de proveedor-->
+        <%= render :partial => "orders/orders_pending", :locals => {:orders_list => @orders_entry_pending}%>
+      </div>
+
+	<div class="span8">
+		<h2>Últimos Movimientos</h2>
+		<h3>Salidas</h3>
+		  <%= render :partial => "orders/orders_partial", :locals => {:list_ord => @orders}%>
+		<h3>Entradas</h3>
+		  <%= render :partial => "orders/orders_entry", :locals => {:entry_list => @orders_list_entry}%>
+	</div>
+
+
+
+
+</div>
+
+
+<%= link_to 'Edit', edit_branch_path(@branch) %> |
+<%= link_to 'Back', branches_path %>

@@ -1,0 +1,21 @@
+<% orders_list.each do |order| %>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th>Name dealer</th>
+    <th>Date output</th>
+    <th></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td><%= order.dealer %></td>
+    <td><%= order.branch_id %></td>
+    <td><%#= link_to 'Entrada', branch_entry_path(@branch,order),:class=>"btn btn-primary"  %></td>
+  </tr>
+</tbody>
+</table>
+
+
+<% end  %>

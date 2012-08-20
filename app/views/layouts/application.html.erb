@@ -7,8 +7,40 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+ <header>
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">Almacen Tacos Mode</a>
+      <div class="nav-collapse">
+        <ul class="nav">
+          <li class="active">
+            <%= link_to 'Home', branches_path  %>
+          </li>
 
+          <li >
+            <%= link_to 'Productos', products_path %>
+          </li>
+
+          <li>
+          </li>
+
+
+        </ul>
+        <ul class="nav pull-right">
+          <li>
+            <a href="#">Sign in</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+ </header>
+
+ <div class="container">
 <%= yield %>
-
+</div>
 </body>
 </html>

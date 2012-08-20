@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  provider: 
+  name: MyString
+  sku: MyText
+  date: 2012-08-17
+  price: 9.99
+
+two:
+  provider: 
+  name: MyString
+  sku: MyText
+  date: 2012-08-17
+  price: 9.99

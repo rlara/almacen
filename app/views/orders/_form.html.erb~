@@ -1,0 +1,51 @@
+<%= form_for([@branch, @order],:html=>{:class=>"form-horizontal"}) do |f| %>
+  <% if @order.errors.any? %>
+      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this transfer from being saved:</h2>
+
+      <ul>
+      <% @order.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+  <% end %>
+
+  <fieldset>
+
+  <div class="control-group">
+    <%= f.label 'Tipo de transferencia', :class=>"control-label" %>
+    <div class="controls">
+    <%#= select(:order, :mode, Order::MODE.collect {|cat| [cat,cat] }) %>
+    </div>
+  </div>
+
+  <div class="control-group">
+  <%= f.label 'Destino Entrada', :class=>"control-label" %>
+    <div class="controls">
+    <%= f.collection_select(:destination, Branch.all, :id, :name) %>
+    </div>
+  </div>
+
+  <div class="control-group">
+  <%= f.label 'Repartidor', :class=>"control-label" %>
+    <div class="controls">
+    <%= f.select(:dealer, Transfer::DEALER.collect {|cat| [cat,cat] }) %>
+    </div>
+  </div>
+
+  
+  <h3>Agregar Productos<h3>
+      <form class="well form-inline">
+      <%= f.fields_for :order_details do |builder|  %>
+        <%= render 'order_detail_fields', {:f => builder, :condicion=>@condicion} %>
+      <% end %>
+    </form>
+      <div id="onenter" style="padding:0px 50px">
+      <%= link_to_add_fields "+", f, :order_details %>
+      </div>
+  <div class="form-actions">
+    <%= f.submit 'Guardar', :class=>"btn btn-primary"%>
+    <%= link_to 'Back', branch_path(@branch), :class=>"btn" %>
+  </div>
+  </fieldset>
+<% end %>
+
