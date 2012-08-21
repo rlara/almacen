@@ -1,17 +1,13 @@
+<form class="well">
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Branch:</b>
-  <%= @order.branch %>
+<p style="font-size:18px">
+  <b>Sucursal:</b>
+  <%= @order.branch.name %>
 </p>
 
-<p>
-  <b>Status:</b>
-  <%= @order.status %>
-</p>
-
-<p>
-  <b>Destination:</b>
+<p style="font-size:18px">
+  <b>Destino:</b>
   <%= @order.destination %>
 </p>
 
@@ -21,10 +17,89 @@
 </p>
 
 <p>
-  <b>Dealer:</b>
+  <b>Repartidor:</b>
   <%= @order.dealer %>
 </p>
 
 
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+<h3>Productos</h3>
+
+  <table class="table table-condensed">
+  <thead>
+    <tr>
+      <th>Cantidad</th>
+      <th>Producto</th>
+    </tr>
+  </thead>
+  <% for order_detail in @order.order_details %>
+    <tbody>
+      <tr>
+        <td><%= order_detail.quantity  %></td>
+        <td><%= order_detail.product.name  %></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  <% end %>
+  </table>
+
+<%= link_to 'Back', branch_path(@branch) %>
+</form>
+
+----------
+
+<%= form_for([@branch, @order_new],:html=>{:class=>"form-horizontal"}) do |f| %>
+ <fieldset>
+
+  <% if @order.errors.any? %>
+      <ul>
+      <% @order.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+  <% end %>
+
+
+  <div class="control-group">
+    <%= f.label 'Tipo de transferencia', :class=>"control-label" %>
+    <div class="controls">
+    <%= select(:order, :mode, Order::MODE.collect {|cat| [cat,cat] }) %>
+    </div>
+  </div>
+
+  <div class="control-group">
+  <%= f.label 'Destino Entrada', :class=>"control-label" %>
+    <div class="controls">
+    <%= f.collection_select(:destination, Branch.all, :id, :name) %>
+    </div>
+  </div>
+
+  <div class="control-group">
+  <%= f.label 'Repartidor', :class=>"control-label" %>
+    <div class="controls">
+      <%= f.select(:dealer, Order::DEALER.collect {|cat| [cat,cat] },{:include_blank=>true}) %>
+    </div>
+  </div>
+
+
+  <h3>Agregar Productos<h3>
+      <form class="well form-inline">
+      <%= f.fields_for :order_details do |builder|  %>
+        <%= render 'order_detail_fields', {:f => builder, :condicion=>@condicion} %>
+      <% end %>
+    </form>
+      <div id="onenter">
+      <%= link_to_add_fields "+", f, :order_details %>
+      </div>
+  <div class="form-actions">
+    <%= f.submit 'Guardar', :class=>"btn btn-primary"%>
+    <%= link_to 'Regresar', branch_path(@branch), :class=>"btn" %>
+  </div>
+  </fieldset>
+<% end %>
+

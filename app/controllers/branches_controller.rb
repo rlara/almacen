@@ -14,13 +14,16 @@ class BranchesController < ApplicationController
   # GET /branches/1.json
   def show
     @branch = Branch.find(params[:id])
-    
-    @orders = @branch.orders.order('created_at DESC')
+
+    @orders = @branch.orders.order('created_at DESC').limit(7)
 
     @orders_list_entry = Order.where(:destination=>(params[:id])).limit(7)
 
-    @orders_entry_pending = Order.where(:status => 'pending', :destination =>(params[:id]))
-    
+    @orders_entry_pending = Order.where(:atach => 'a', :destination =>(params[:id]))
+
+    @ver_orden = Order.where(:atach => 'a').count
+
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @branch }
@@ -50,7 +53,7 @@ class BranchesController < ApplicationController
 
     respond_to do |format|
       if @branch.save
-        format.html { redirect_to @branch, notice: 'Branch was successfully created.' }
+        format.html { redirect_to branches_path, notice: 'Branch was successfully created.' }
         format.json { render json: @branch, status: :created, location: @branch }
       else
         format.html { render action: "new" }

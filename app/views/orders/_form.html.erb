@@ -1,7 +1,7 @@
 <%= form_for([@branch, @order],:html=>{:class=>"form-horizontal"}) do |f| %>
-  <% if @order.errors.any? %>
-      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this transfer from being saved:</h2>
+ <fieldset>
 
+  <% if @order.errors.any? %>
       <ul>
       <% @order.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -9,12 +9,10 @@
       </ul>
   <% end %>
 
-  <fieldset>
-
   <div class="control-group">
     <%= f.label 'Tipo de transferencia', :class=>"control-label" %>
     <div class="controls">
-    <%#= select(:order, :mode, Order::MODE.collect {|cat| [cat,cat] }) %>
+    <%= select(:order, :mode, Order::MODE.collect {|cat| [cat,cat] }) %>
     </div>
   </div>
 
@@ -28,7 +26,7 @@
   <div class="control-group">
   <%= f.label 'Repartidor', :class=>"control-label" %>
     <div class="controls">
-    <%= f.select(:dealer, Order::DEALER.collect {|cat| [cat,cat] }) %>
+      <%= f.select(:dealer, Order::DEALER.collect {|cat| [cat,cat] },{:include_blank=>true}) %>
     </div>
   </div>
 
@@ -39,7 +37,7 @@
         <%= render 'order_detail_fields', {:f => builder, :condicion=>@condicion} %>
       <% end %>
     </form>
-      <div id="onenter" style="padding:0px 50px">
+      <div id="onenter">
       <%= link_to_add_fields "+", f, :order_details %>
       </div>
   <div class="form-actions">

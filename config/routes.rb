@@ -4,9 +4,13 @@ Almacen::Application.routes.draw do
 
   resources :products
 
+  get "branches/:branch_id/orders/provider_entry" => 'transfers#provider_entry', :as=>'provider_branch_order'
 
   resources :branches do
     resources :orders do
+      resources :order_details
+    end
+    match "/orders/:id/order_edit" => "orders#order_edit", :as => 'entry' do
       resources :order_details
     end
   end

@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(:version => 20120817213506) do
   create_table "branches", :force => true do |t|
     t.string   "name"
     t.text     "location"
+    t.boolean  "provider"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -42,11 +43,10 @@ ActiveRecord::Schema.define(:version => 20120817213506) do
   create_table "order_details", :force => true do |t|
     t.integer  "order_id"
     t.integer  "product_id"
-    t.string   "quantity_send"
-    t.string   "quantity_receive"
+    t.string   "quantity"
     t.text     "note"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "order_details", ["order_id"], :name => "index_order_details_on_order_id"
@@ -55,10 +55,10 @@ ActiveRecord::Schema.define(:version => 20120817213506) do
   create_table "orders", :force => true do |t|
     t.integer  "branch_id"
     t.string   "mode"
-    t.string   "status"
     t.string   "destination"
     t.string   "user_id"
     t.string   "dealer"
+    t.integer  "atach"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
@@ -66,20 +66,12 @@ ActiveRecord::Schema.define(:version => 20120817213506) do
   add_index "orders", ["branch_id"], :name => "index_orders_on_branch_id"
 
   create_table "products", :force => true do |t|
-    t.integer  "provider_id"
     t.string   "name"
     t.text     "sku"
     t.date     "date"
     t.decimal  "price"
     t.string   "units"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "products", ["provider_id"], :name => "index_products_on_provider_id"
-
-  create_table "providers", :force => true do |t|
-    t.string   "name"
+    t.boolean  "status"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

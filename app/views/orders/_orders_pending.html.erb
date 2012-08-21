@@ -1,18 +1,18 @@
-<% orders_list.each do |order| %>
+<% orders_list.each do |ord| %>
 
 <table class="table">
   <thead>
   <tr>
-    <th>Repartidor</th>
+    <th>Tipo</th>
     <th>Sucursal</th>
     <th></th>
   </tr>
 </thead>
 <tbody>
   <tr>
-    <td><%= order.dealer %></td>
-    <td><%= order.branch_id %></td>
-    <td><%#= link_to 'Entrada', branch_entry_path(@branch,order),:class=>"btn btn-primary"  %></td>
+    <td><%= ord.mode %></td>
+    <td><%= ord.branch_id %></td>
+    <td><%= link_to 'Aceptar', branch_order_path(@branch,ord),:class=>"btn btn-primary"  %></td>
   </tr>
 </tbody>
 </table>

@@ -5,18 +5,17 @@
     <th></th>
     <th></th>
     <th></th>
-    <th></th>
-    <th></th>
   </tr>
 </thead>
 
 <tbody>
   <tr>
     <td><%= ord.mode %></td>
-    <td><%= ord.dealer %></td>
-    <td><%= ord.status %></td>
-    <td><%= link_to 'Show', branch_order_path(@branch,order), :class=>"btn btn-primary" %></td>
-    <td><%= link_to 'Edit', edit_branch_order_path(@branch,order),:class=>"btn btn-primary"  %></td>
+    <td><%= ord.branch.name %></td>
+    <td><%= link_to 'Show', branch_order_path(@branch,ord), :class=>"btn btn-primary" %></td>
+    <td></td>
+    <td></td>
+    <td></td>
   </tr>
 </tbody>
 </table>
