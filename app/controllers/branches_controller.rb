@@ -15,11 +15,11 @@ class BranchesController < ApplicationController
   def show
     @branch = Branch.find(params[:id])
 
-    @orders = @branch.orders.order('created_at DESC').limit(7)
+   @product = Product.all
 
-    @orders_list_entry = Order.where(:destination=>(params[:id])).limit(7)
+   @move_list_entry = Move.where(:branch_id=>(params[:id]))
 
-    @orders_entry_pending = Order.where(:atach => 'a', :destination =>(params[:id]))
+    @orders_entry_pending = Order.where(:destination =>(params[:id]))
 
     @ver_orden = Order.where(:atach => 'a').count
 

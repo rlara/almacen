@@ -17,10 +17,7 @@
         <%=link_to "Orden", new_branch_order_path(@branch), :class=>"btn btn-primary" %>
         <!--link para dar de altaa un abastecimiento de proveedor-->
         <h2>Pendientes</h2>
-        <%if @ver_orden == 3  %>
-        <% else %>
         <%= render :partial => "orders/orders_pending", :locals => {:orders_list => @orders_entry_pending}%>
-      <% end  %>
       </div>
 
 	<div class="span8">
@@ -29,7 +26,7 @@
         <%#= render :partial => "orders/orders_partial", :locals => {:list_ord => @orders}%>
 
 		<h3>Entradas</h3>
-		  <%#= render :partial => "orders/orders_entry", :locals => {:entry_list => @orders_list_entry}%>
+		  <%= render :partial => "moves/moves_entry", :locals => {:entry_list => @move_list_entry}%>
 	</div>
 
 

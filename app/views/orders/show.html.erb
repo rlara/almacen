@@ -48,10 +48,9 @@
   <% end %>
   </table>
 
-<%= link_to 'Back', branch_path(@branch) %>
 </form>
 
-----------
+<h3>Atender Orden</h3>
 
 <%= form_for([@branch, @order_new],:html=>{:class=>"form-horizontal"}) do |f| %>
  <fieldset>
@@ -63,14 +62,21 @@
       <% end %>
       </ul>
   <% end %>
+<!-- Validar que es un pedido de una sucursal a otra --!>
 
+<%= f.hidden_field :atach, :value => @order.atach  %>
+<% if @order.mode == '1' %>
+ <%= f.hidden_field :mode, :value => '2' %>
 
+<% else %>
   <div class="control-group">
     <%= f.label 'Tipo de transferencia', :class=>"control-label" %>
     <div class="controls">
-    <%= select(:order, :mode, Order::MODE.collect {|cat| [cat,cat] }) %>
+    <%= f.select :mode, options_for_select([['Pedido-Sucursal',1],['Pedido-proveedor',2],['Salida a OtraSucursal',3],['Salida a SiMismo',4],['Entrada de OtraSucursal',5],['Entrada de Proveedor',6],['Entrada de simismo',7]]), :include_blank=>true %>
     </div>
   </div>
+<% end %>
+
 
   <div class="control-group">
   <%= f.label 'Destino Entrada', :class=>"control-label" %>

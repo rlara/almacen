@@ -3,7 +3,7 @@
 <%= render 'form' %>
 
 <script type="text/javascript">
-    $('select.enp:last').keyup(function(e){
+    $('select.enp:last').live('keyup',function(e){
       if(e.keyCode == 13) {
         $('#enterp').trigger('click');
       };

@@ -1,0 +1,27 @@
+<% entry_list.each do |move| %>
+<table class="table table-condensed">
+  <thead>
+  <tr>
+    <th>ID de el Producto</th>
+    <th>Cantidad</th>
+    <th></th>
+  </tr>
+</thead>
+
+<tbody>
+  <tr>
+    <td><%= move.product_id %></td>
+    <td><%= move.entry %>
+    <td><%= move.order.branch.name %></td>
+    <td><%= move.date_move %></td>
+
+    <td><%#= link_to 'Show', branch_order_path(@branch,ord), :class=>"btn btn-primary" %></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</tbody>
+</table>
+
+
+<% end  %>

@@ -12,7 +12,7 @@
   <div class="control-group">
     <%= f.label 'Tipo de transferencia', :class=>"control-label" %>
     <div class="controls">
-      <%= f.select :mode,options_for_select([['Pedido-Sucursal',1],['Pedido-proveedor',2]]), :prompt=>true %>
+      <%= f.select :mode,options_for_select([['Pedido-Sucursal',1],['Pedido-proveedor',2],['Salida a OtraSucursal',3],['Salida a SiMismo',4],['Entrada de OtraSucursal',5],['Entrada de Proveedor',6],['Entrada de simismo',7]]), :include_blank=>true %>
     </div>
   </div>
 
