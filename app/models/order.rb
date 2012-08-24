@@ -9,10 +9,10 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :moves
 
 
-  before_create :create_atach
+  before_save :create_atach
 
   def create_atach
-    self.atach = SecureRandom.hex(9)
+    self.atach = self.id
   end
 
   DEALER = ['Roberto','Sergio','Carlos']
