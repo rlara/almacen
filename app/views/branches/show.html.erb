@@ -1,4 +1,5 @@
-<p id="notice"><%= notice %></p>
+
+  <p id="notice"><%= notice %></p>
 
 <p style="font-size:15px">
   <b>Nombre:</b>
@@ -8,26 +9,44 @@
 <p style="font-size:15px">
   <b>Ubicación:</b>
   <%= @branch.location %>
+<%= link_to 'Edit', edit_branch_path(@branch) %> |
+<%= link_to 'Back', branches_path %>
+
+
 </p>
 
+<div class="row-fluid">
 
-<div class="row">
-      <div class="span4" style="float:right">
-        <h2>Dar de alta un movimiento</h2>
-        <%=link_to "Orden", new_branch_order_path(@branch), :class=>"btn btn-primary" %>
-        <!--link para dar de altaa un abastecimiento de proveedor-->
-        <h2>Pendientes</h2>
-        <%= render :partial => "orders/orders_pending", :locals => {:orders_list => @orders_entry_pending}%>
-      </div>
+  <div class="span3">
+    <form class="form well">
+        <h3>Movimiento</h3>
+        <ul style="list-style:none">
+          <li><%=link_to "Enviar", new_branch_order_path(@branch, :m => @s), :class=>"btn btn-success" %></li>
+          <br/>
+          <li><%=link_to "Entrada-Proveedor", new_branch_order_path(@branch, :m => @e), :class=>"btn btn-success" %></li>
+          <br/>
+          <li><%=link_to "Enviar a mi sucursal", new_branch_order_path(@branch), :class=>"btn btn-primary" %></li>
 
-	<div class="span8">
-		<h2>Últimos Movimientos</h2>
+        </ul>
+  </div>
+</form>
+	<div class="span6">
+
+        <h2>Últimos Movimientos</h2>
 		<h3>Salidas</h3>
         <%#= render :partial => "orders/orders_partial", :locals => {:list_ord => @orders}%>
 
 		<h3>Entradas</h3>
-		  <%= render :partial => "moves/moves_entry", :locals => {:entry_list => @move_list_entry}%>
+		  <%= render :partial => "orders/orders_entry", :locals => {:entry_list => @order_list_entry}%>
 	</div>
+<div class="span3" style="float:right">
+  <h2>Movimiento Pendientes</h2>
+  <%= @ver_orden  %>
+  <% if @ver_orden == 2 %>
+      <% else  %>
+        <%= render :partial => "orders/orders_pending", :locals => {:orders_list => @orders_entry_pending}%>
+      <% end %>
+  </div>
 
 
 
@@ -35,5 +54,3 @@
 </div>
 
 
-<%= link_to 'Edit', edit_branch_path(@branch) %> |
-<%= link_to 'Back', branches_path %>

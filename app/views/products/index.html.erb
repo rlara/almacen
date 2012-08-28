@@ -3,11 +3,12 @@
 </div>
 <% if @products.empty?  %>
   <h3>Crea un producto </h3>
-<% elsif %>
+<% else %>
 <table class="table table-striped">
 <thead>
   <tr>
     <th>Nombre</th>
+    <th>Descripción</th>
     <th>Sku</th>
     <th>Fecha de caducidad</th>
     <th>Unidad</th>
@@ -21,6 +22,7 @@
 <% @products.each do |product| %>
   <tr>
     <td><%= product.name %></td>
+    <td><%= product.description %></td>
     <td><%= product.sku %></td>
     <td><%= product.date %></td>
     <td><%= product.units %></td>

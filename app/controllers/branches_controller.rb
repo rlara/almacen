@@ -1,5 +1,5 @@
 class BranchesController < ApplicationController
-  # GET /branches
+# GET /branches
   # GET /branches.json
   def index
     @branches = Branch.all
@@ -13,21 +13,28 @@ class BranchesController < ApplicationController
   # GET /branches/1
   # GET /branches/1.json
   def show
+
+
     @branch = Branch.find(params[:id])
 
    @product = Product.all
 
-   @move_list_entry = Move.where(:branch_id=>(params[:id]))
+   @order_list_entry = Order.where(:destination=>(params[:id]))
 
     @orders_entry_pending = Order.where(:destination =>(params[:id]))
 
-    @ver_orden = Order.where(:atach => 'a').count
+    @ver_orden = Order.group("atach").count(:atach, :distinct => true)
+
+    @s = "1"
+    @e= "2"
+
 
 
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @branch }
     end
+
   end
 
   # GET /branches/new

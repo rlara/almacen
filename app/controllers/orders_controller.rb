@@ -1,7 +1,6 @@
 class OrdersController < ApplicationController
   before_filter :get_branch
-
-  def get_branch
+    def get_branch
     @branch = Branch.find(params[:branch_id])
   end
   # GET /orders

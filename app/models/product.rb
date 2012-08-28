@@ -3,5 +3,7 @@ class Product < ActiveRecord::Base
   has_many :moves
   attr_accessible :date, :name, :price, :sku, :units
   validates :name, :sku, :price, :presence => true
-
+  def funky_method
+    "#{self.name}.camelize"
+  end
 end

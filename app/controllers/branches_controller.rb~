@@ -13,12 +13,24 @@ class BranchesController < ApplicationController
   # GET /branches/1
   # GET /branches/1.json
   def show
+
+	
     @branch = Branch.find(params[:id])
+
+   @product = Product.all
+
+   @move_list_entry = Move.where(:branch_id=>(params[:id]))
+
+    @orders_entry_pending = Order.where(:destination =>(params[:id]))
+
+    @ver_orden = Order.where(:atach => 'a').count
+    render :layout => "container_fluid" 
 
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @branch }
     end
+   
   end
 
   # GET /branches/new
@@ -44,7 +56,7 @@ class BranchesController < ApplicationController
 
     respond_to do |format|
       if @branch.save
-        format.html { redirect_to @branch, notice: 'Branch was successfully created.' }
+        format.html { redirect_to branches_path, notice: 'Branch was successfully created.' }
         format.json { render json: @branch, status: :created, location: @branch }
       else
         format.html { render action: "new" }

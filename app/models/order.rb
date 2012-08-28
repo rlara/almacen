@@ -12,7 +12,9 @@ class Order < ActiveRecord::Base
   before_save :create_atach
 
   def create_atach
-    self.atach = self.id
+    if self.atach == nil
+      self.atach = self.id
+    end
   end
 
   DEALER = ['Roberto','Sergio','Carlos']

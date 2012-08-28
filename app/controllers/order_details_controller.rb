@@ -1,4 +1,6 @@
 class OrderDetailsController < ApplicationController
+  autocomplete :product, :name, :display_value => :funky_method
+
   # GET /order_details
   # GET /order_details.json
   def index
