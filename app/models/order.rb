@@ -2,7 +2,7 @@ class Order < ActiveRecord::Base
   belongs_to :branch
   has_many :order_details
   has_many :moves
-  attr_accessible :dealer, :destination, :atach, :user_id, :order_details_attributes, :mode
+  attr_accessible :dealer, :destination, :atach, :user_id, :order_details_attributes, :mode, :product_id
   validates :mode, :destination, :presence => true
 
   accepts_nested_attributes_for :order_details

@@ -6,9 +6,9 @@ Almacen::Application.routes.draw do
 
   resources :branches do
     resources :orders do
-      resources :order_details do
-        get :autocomplete_product, :on => :collection
-      end
+      resources :order_details
+get :autocomplete_product_name, :on => :collection
+
     end
 
     match "/orders/:id/order_edit" => "orders#order_edit", :as => 'entry' do
