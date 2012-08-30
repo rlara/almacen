@@ -80,6 +80,8 @@ $(document).ready(function(){
 					terms.pop();
 					// add the selected item
 					terms.push( ui.item.value );
+                    // Change the product id field with the selected product id
+                    $("#product_id").val(ui.item.id);
 					// add placeholder to get the comma-and-space at the end
 					if (e.delimiter != null) {
 						terms.push( "" );
@@ -100,7 +102,7 @@ $(document).ready(function(){
 					if ($(e).attr('submit_on_select') == 'true') {
 						$(e).closest("form")[0].submit();
 					};
-					
+
 					$(this).trigger('railsAutocomplete.select');
 					// $(this).closest("form").submit();
 					return false;

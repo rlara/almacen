@@ -100,7 +100,7 @@ $(document).ready(function(){
 					if ($(e).attr('submit_on_select') == 'true') {
 						$(e).closest("form")[0].submit();
 					};
-					
+
 					$(this).trigger('railsAutocomplete.select');
 					// $(this).closest("form").submit();
 					return false;
