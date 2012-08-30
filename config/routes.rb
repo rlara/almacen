@@ -7,7 +7,7 @@ Almacen::Application.routes.draw do
   resources :branches do
     resources :orders do
       resources :order_details
-get :autocomplete_product_name, :on => :collection
+get :autocomplete_products_search, :on => :collection
 
     end
 

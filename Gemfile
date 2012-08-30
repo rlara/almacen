@@ -6,7 +6,8 @@ gem 'rails', '3.2.3'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-gem 'rails3-jquery-autocomplete'
+#gem 'rails3-jquery-autocomplete'
+gem 'rails3-jquery-autocomplete', :git => "https://github.com/dbachet/rails3-jquery-autocomplete.git"
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -11,6 +11,7 @@ class Order < ActiveRecord::Base
 
   before_save :create_atach
 
+
   def create_atach
     if self.atach == nil
       self.atach = self.id

@@ -3,7 +3,7 @@
   <%= f.label "Cantidad", :class=>"control-label" %>
   <%= f.text_field :quantity, :class=>"input-small", :placeholder=>'Cantidad', :value=>1 %>
 
-  <%= f.autocomplete_field :product_id, autocomplete_product_name_branch_orders_path, :id_element => '#order_order_details_product_id', :class => "enp"%>
+  <%= text_field_tag :products_name, nil, :autocomplete => autocomplete_products_search_branch_orders_path %>
 
   <!-- <div class="ui-widget" style="display:inline-block; width:200px">--!>
     <%#= f.select(:product_id, Product.all.collect {|p|[p.sku + "  " + p.name, p.id]}, {:prompt => 'Selecciona un Producto'}, :class => "enp" )%>

@@ -1,7 +1,6 @@
 class OrdersController < ApplicationController
 
-autocomplete :product, :name, :extra_data => [:sku], :value => [:id]
-
+ autocomplete :products_search, {:product => [:name, :sku]}
 
  before_filter :get_branch
     def get_branch
