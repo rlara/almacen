@@ -12,7 +12,7 @@
 * be updated with the element id whenever you find a matching value
 *
 *   Example:
-*       <input type="text" data-autocomplete="/url/to/autocomplete" id_element="#id_field">
+       <input type="text" data-autocomplete="/url/to/autocomplete" id_element="#id_field">
 */
 
 $(document).ready(function(){
@@ -80,6 +80,8 @@ $(document).ready(function(){
 					terms.pop();
 					// add the selected item
 					terms.push( ui.item.value );
+                    // Change the product id field with the selected product id
+                    $("#product_id").val(ui.item.id);
 					// add placeholder to get the comma-and-space at the end
 					if (e.delimiter != null) {
 						terms.push( "" );
@@ -109,3 +111,4 @@ $(document).ready(function(){
     }
   });
 })(jQuery);
+>>>>>>> cf24900d0b86ac1d05e97e489362ddf84bd4d5a8

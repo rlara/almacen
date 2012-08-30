@@ -2,7 +2,11 @@ class OrdersController < ApplicationController
   
 autocomplete :products_search, {:product => [:name, :sku]}
 
+<<<<<<< HEAD
 
+=======
+ autocomplete :products_search, {:product => [:name, :sku]}
+>>>>>>> cf24900d0b86ac1d05e97e489362ddf84bd4d5a8
 
  before_filter :get_branch
   def get_branch

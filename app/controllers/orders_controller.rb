@@ -3,7 +3,6 @@ class OrdersController < ApplicationController
 autocomplete :products_search, {:product => [:name, :sku]}
 
 
-
  before_filter :get_branch
   def get_branch
     @branch = Branch.find(params[:branch_id])

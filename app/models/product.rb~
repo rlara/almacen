@@ -3,6 +3,16 @@ class Product < ActiveRecord::Base
   has_many :moves
   attr_accessible :date, :name, :price, :sku, :units, :description
   validates :name, :sku, :price, :presence => true
+<<<<<<< HEAD
+ 
+ scope :by_name_and_sku, lambda { |q| where("name LIKE ? OR sku LIKE ?", "%#{q}%", "%#{q}%") }  
+=======
+
+  scope :by_name_and_sku, lambda { |q| where("name LIKE ? OR sku LIKE ?", "%#{q}%", "%#{q}%") }
+
+  def funky_method
+    "#{self.name}.camelize"
+>>>>>>> cf24900d0b86ac1d05e97e489362ddf84bd4d5a8
 
   def funky_method
     "#{self.name}"
