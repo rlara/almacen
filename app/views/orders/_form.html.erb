@@ -1,4 +1,4 @@
-<%= form_for([@branch, @order],:html=>{:class=>"form-horizontal"}) do |f| %>
+<%= form_for([@branch, @order],:html=>{:class=>"well"}) do |f| %>
   <% if @order.errors.any? %>
       <h2><%= pluralize(@order.errors.count, "error") %> prohibited this transfer from being saved:</h2>
 

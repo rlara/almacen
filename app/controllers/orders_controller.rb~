@@ -1,9 +1,15 @@
 class OrdersController < ApplicationController
-  before_filter :get_branch
+  
+autocomplete :products_search, {:product => [:name, :sku]}
 
+
+
+ before_filter :get_branch
   def get_branch
     @branch = Branch.find(params[:branch_id])
   end
+
+
   # GET /orders
   # GET /orders.json
   def index
@@ -19,6 +25,8 @@ class OrdersController < ApplicationController
   # GET /orders/1.json
   def show
     @order = Order.find(params[:id])
+    @order_new = Order.new
+1.times {@order_new.order_details.build}
 
     respond_to do |format|
       format.html # show.html.erb
@@ -30,7 +38,8 @@ class OrdersController < ApplicationController
   # GET /orders/new.json
   def new
     @order = Order.new
-
+    1.times {@order.order_details.build}
+    @condicion = 2
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @order }
@@ -40,16 +49,22 @@ class OrdersController < ApplicationController
   # GET /orders/1/edit
   def edit
     @order = Order.find(params[:id])
+    @condicion = 2
+  end
+
+  def order_edit
+    @order = Order.find(params[:id])
+    @condicion = 1
   end
 
   # POST /orders
   # POST /orders.json
   def create
-    @order = Order.new(params[:order])
+    @order = @branch.orders.create(params[:order])
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
+        format.html { redirect_to branch_path(@branch), notice: 'Order was successfully created.' }
         format.json { render json: @order, status: :created, location: @order }
       else
         format.html { render action: "new" }

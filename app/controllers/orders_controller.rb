@@ -1,12 +1,15 @@
 class OrdersController < ApplicationController
+  
+autocomplete :products_search, {:product => [:name, :sku]}
 
-autocomplete :product, :name, :extra_data => [:sku], :value => [:id]
 
 
  before_filter :get_branch
-    def get_branch
+  def get_branch
     @branch = Branch.find(params[:branch_id])
   end
+
+
   # GET /orders
   # GET /orders.json
   def index

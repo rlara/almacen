@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/dbachet/rails3-jquery-autocomplete.git
+  revision: 37446320e4550aebe6fada64a014d0de1f01860a
+  specs:
+    rails3-jquery-autocomplete (0.5.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -43,10 +49,10 @@ GEM
     hike (1.2.1)
     i18n (0.6.0)
     journey (1.0.4)
-    jquery-rails (2.1.0)
+    jquery-rails (2.1.1)
       railties (>= 3.1.0, < 5.0)
       thor (~> 0.14)
-    json (1.7.4)
+    json (1.7.5)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -70,8 +76,6 @@ GEM
       activesupport (= 3.2.3)
       bundler (~> 1.0)
       railties (= 3.2.3)
-    rails3-jquery-autocomplete (1.0.7)
-      rails (~> 3.0)
     railties (3.2.3)
       actionpack (= 3.2.3)
       activesupport (= 3.2.3)
@@ -109,6 +113,6 @@ DEPENDENCIES
   jquery-rails
   pg
   rails (= 3.2.3)
-  rails3-jquery-autocomplete
+  rails3-jquery-autocomplete!
   sass-rails (~> 3.2.3)
   uglifier (>= 1.0.3)

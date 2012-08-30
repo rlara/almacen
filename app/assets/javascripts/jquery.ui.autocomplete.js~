@@ -350,12 +350,12 @@ $.widget( "ui.autocomplete", {
 			if ( typeof item === "string" ) {
 				return {
 					label: item,
-					value: item
+					value: item.id
 				};
 			}
 			return $.extend({
 				label: item.label || item.value,
-				value: item.value || item.label
+				value: item.value || item.id
 			}, item );
 		});
 	},

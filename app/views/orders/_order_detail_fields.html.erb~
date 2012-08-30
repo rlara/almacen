@@ -1,22 +1,16 @@
-<div class="fields">
+<div class="fields" >
 
   <%= f.label "Cantidad", :class=>"control-label" %>
-  <% if @condicion == 1 %>
-    <%= f.text_field :quantity, :class=>"input-small", :placeholder=>'Cantidad', :disabled => true %>
+  <%= f.text_field :quantity, :class=>"input-small", :placeholder=>'Cantidad', :value=>1 %>
 
-    <%= f.select(:product_id, Product.all.collect {|p|[p.sku, p.id]}, {:prompt => 'Selecciona un Producto'}, {:disabled => true})%>
+  <%= text_field_tag :products_name, nil, :autocomplete_products_search_branch_orders_path, :class => "enp"%>
 
-    <%= f.text_field :quantity_entry, :placeholder=>'Cantidad Recibida' %>
+  <!-- <div class="ui-widget" style="display:inline-block; width:200px">
+     </div> !-->
 
-  <% else %>
-    <%= f.text_field :quantity, :class=>"input-small", :placeholder=>'Cantidad', :value=>1 %>
-    <%= f.select(:product_id, Product.all.collect {|p|[p.sku + "  " + p.name, p.id]}, {:prompt => 'Selecciona un Producto'}, :class => "enp" )%>
-  <% end  %>
-
-  <%= f.text_area :note, :rows=>"2", :placeholder=>'Agrega una Nota' %>
-
-
+    <%= f.text_area :note, :rows=>"2", :placeholder=>'Agrega una Nota' %>
     <%= link_to_remove_fields "_", f %>
 
-  </div>
+</div>
+
 

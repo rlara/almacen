@@ -350,7 +350,7 @@ $.widget( "ui.autocomplete", {
 			if ( typeof item === "string" ) {
 				return {
 					label: item,
-					value: item.id
+					value: item
 				};
 			}
 			return $.extend({
