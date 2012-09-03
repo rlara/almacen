@@ -14,15 +14,19 @@
   <fieldset>
 
     <% if params[:m] == "1"  %>
+
       <%= f.hidden_field :mode, :value => 1  %>
       <%= f.hidden_field :status, :value => 'pending'  %>
+
     <% else %>
+
       <div class="control-group">
       <%= f.label 'Tipo de transferencia', :class=>"control-label" %>
         <div class="controls">
         <%= f.select :mode,options_for_select([['Salida a OtraSucursal',1],['Salida a SiMismo',2],['Entrada de OtraSucursal',3],['Entrada de Proveedor',4],['Entrada de simismo',5]]), :include_blank=>true %>
         </div>
       </div>
+
     <% end %>
 
   <div class="control-group">
