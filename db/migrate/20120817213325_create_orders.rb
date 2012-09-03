@@ -3,10 +3,12 @@ class CreateOrders < ActiveRecord::Migration
     create_table :orders do |t|
       t.references :branch
       t.string :mode	
-      t.string :destination
-      t.string :user_id
+      t.integer :destination
+      t.integer :user_id
+      t.date :date  	
       t.string :dealer
       t.integer :atach
+      t.string :status
 
       t.timestamps
     end

@@ -2,15 +2,15 @@ Almacen::Application.routes.draw do
   resources :moves
   resources :products
 
-  get "branches/:branch_id/orders/provider_entry" => 'transfers#provider_entry', :as=>'provider_branch_order'
+  get "branches/:branch_id/orders/provision" => 'orders#provision', :as=>'provision' do
+    resources :order_details
+  end
 
   resources :branches do
     resources :orders do
       resources :order_details
-get :autocomplete_products_search, :on => :collection
-
+        get :autocomplete_products_search, :on => :collection
     end
-
     match "/orders/:id/order_edit" => "orders#order_edit", :as => 'entry' do
       resources :order_details
     end

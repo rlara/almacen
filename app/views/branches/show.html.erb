@@ -9,10 +9,9 @@
 <p style="font-size:15px">
   <b>Ubicación:</b>
   <%= @branch.location %>
-<%= link_to 'Edit', edit_branch_path(@branch) %> |
-<%= link_to 'Back', branches_path %>
+  <%= link_to 'Edit', edit_branch_path(@branch), :class=>"btn" %>
 
-
+  <%= link_to 'Back', branches_path, :class=>"btn" %>
 </p>
 
 <div class="row-fluid">
@@ -39,16 +38,12 @@
 		<h3>Entradas</h3>
 		  <%= render :partial => "orders/orders_entry", :locals => {:entry_list => @order_list_entry}%>
 	</div>
-<div class="span3" style="float:right">
-  <h2>Movimiento Pendientes</h2>
-  <%= @ver_orden  %>
-  <% if @ver_orden == 2 %>
-      <% else  %>
+
+  <div class="span3" style="float:right">
+
+    <h2>Movimiento Pendientes</h2>
         <%= render :partial => "orders/orders_pending", :locals => {:orders_list => @orders_entry_pending}%>
-      <% end %>
   </div>
-
-
 
 
 </div>

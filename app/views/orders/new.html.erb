@@ -1,6 +1,10 @@
-<h1>Nueva orden</h1>
-
-<%= render 'form' %>
+<div class="span10">
+  <h1>Nueva orden</h1>
+  <%= render 'form' %>
+</div>
+<div class="span2" style="margin-top:40px">
+  <%= link_to 'Agregar Producto',  new_product_path, :class=>"btn btn-success", :target=>"_blank"  %>
+</div>
 
 <script type="text/javascript">
     $('input.enp:last').live('keyup',function(e){
@@ -9,5 +13,5 @@
       };
     });
 
-  </script>
+</script>
 

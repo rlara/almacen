@@ -1,3 +1,4 @@
+
 <%= form_for([@branch, @order],:html=>{:class=>"well"}) do |f| %>
   <% if @order.errors.any? %>
       <h2><%= pluralize(@order.errors.count, "error") %> prohibited this transfer from being saved:</h2>
@@ -11,16 +12,19 @@
 
 
   <fieldset>
-<% if params[:m] == "1"  %>
-    <%= f.hidden_field :mode, :value => 1  %>
-<% else %>
-    <div class="control-group">
-    <%= f.label 'Tipo de transferencia', :class=>"control-label" %>
-    <div class="controls">
-      <%= f.select :mode,options_for_select([['Salida a OtraSucursal',1],['Salida a SiMismo',2],['Entrada de OtraSucursal',3],['Entrada de Proveedor',4],['Entrada de simismo',5]]), :include_blank=>true %>
-    </div>
-  </div>
-<% end %>
+
+    <% if params[:m] == "1"  %>
+      <%= f.hidden_field :mode, :value => 1  %>
+      <%= f.hidden_field :status, :value => 'pending'  %>
+    <% else %>
+      <div class="control-group">
+      <%= f.label 'Tipo de transferencia', :class=>"control-label" %>
+        <div class="controls">
+        <%= f.select :mode,options_for_select([['Salida a OtraSucursal',1],['Salida a SiMismo',2],['Entrada de OtraSucursal',3],['Entrada de Proveedor',4],['Entrada de simismo',5]]), :include_blank=>true %>
+        </div>
+      </div>
+    <% end %>
+
   <div class="control-group">
   <%= f.label 'Destino Entrada', :class=>"control-label" %>
     <div class="controls">
@@ -34,6 +38,22 @@
       <%= f.select(:dealer, Order::DEALER.collect {|cat| [cat,cat] },{:include_blank=>true}) %>
     </div>
   </div>
+
+  <div class="control-group">
+    <%= f.label 'Fecha', :class=>"control-label" %>
+   <div class="controls">
+     <%= f.text_field :date %>
+     </div>
+   </div>
+  <script type="text/javascript">
+    $(document).ready(function () {
+        $('#order_date').datepicker();
+        $('#order_date').datepicker('option', {dateFormat: 'yy-mm-dd'});
+        $("#startDate").datepicker({dateFormat: 'yy-mm-dd'});
+
+    });
+  </script>
+
 
 
   <h3>Agregar Productos</h3>
@@ -51,4 +71,3 @@
   </div>
   </fieldset>
 <% end %>
-

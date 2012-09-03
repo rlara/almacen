@@ -17,14 +17,14 @@ class BranchesController < ApplicationController
 
     @branch = Branch.find(params[:id])
 
-   @product = Product.all
-
-   @order_list_entry = Order.where(:destination=>(params[:id]))
-
-    @orders_entry_pending = Order.where(:destination =>(params[:id]))
-
-    @ver_orden = Order.group("atach").count(:atach, :distinct => true)
-
+    @product = Product.all
+    #Ver todas las salidas de la sucursal
+    @order_list_entry = Order.where(:destination=>(params[:id]))
+    #Ver todas las entradas de la sucursal
+    @orders_entry_pending = Order.where(:destination =>(params[:id]), :status => 'pending')
+    #Ver las ordenes pendientes de una sucursal
+    # @ver_orden = Order.where(:destination =>(params[:id]), :status => 'pending')
+    # mando estos parametros cuando sea una salida el campo mode=1 cuando sea entrada mode=2
     @s = "1"
     @e= "2"
 

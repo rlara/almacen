@@ -1,6 +1,6 @@
 GIT
-  remote: https://github.com/dbachet/rails3-jquery-autocomplete.git
-  revision: 37446320e4550aebe6fada64a014d0de1f01860a
+  remote: https://github.com/acolin/rails3-jquery-autocomplete.git
+  revision: 6049f522c488d962d41ade34913c9ca26fc9abcd
   specs:
     rails3-jquery-autocomplete (0.5.0)
 
@@ -47,7 +47,7 @@ GEM
     execjs (1.4.0)
       multi_json (~> 1.0)
     hike (1.2.1)
-    i18n (0.6.0)
+    i18n (0.6.1)
     journey (1.0.4)
     jquery-rails (2.1.1)
       railties (>= 3.1.0, < 5.0)

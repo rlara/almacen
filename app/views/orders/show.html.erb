@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    $('select.enp:last').live('keyup',function(e){
+    $('input.enp:last').live('keyup',function(e){
       if(e.keyCode == 13) {
         $('#enterp').trigger('click');
       };
@@ -8,7 +8,6 @@
 </script>
 <form class="well">
 <p id="notice"><%= notice %></p>
-
 <p style="font-size:18px">
   <b>Sucursal:</b>
   <%= @order.branch.name %>
@@ -57,10 +56,10 @@
 
 <%= form_for([@branch, @order_new],:html=>{:class=>"form-inline"}) do |f| %>
  <fieldset>
-
-  <% if @order.errors.any? %>
+   <%  @var_errors == true%>
+  <% if @order_new.errors.any? %>
       <ul>
-      <% @order.errors.full_messages.each do |msg| %>
+      <% @order_new.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
@@ -87,7 +86,16 @@
     <%= f.collection_select(:destination, Branch.all, :id, :name) %>
 
       <%= f.select(:dealer, Order::DEALER.collect {|cat| [cat,cat] },{:prompt=>'Selecciona el Repartidor'}) %>
-  </div>
+      <%= f.text_field :date, :placeholder => 'Seleciona la Fecha' %>
+   </div>
+  <script type="text/javascript">
+    $(document).ready(function () {
+        $('#order_date').datepicker();
+        $('#order_date').datepicker('option', {dateFormat: 'yy-mm-dd'});
+        $("#startDate").datepicker({dateFormat: 'yy-mm-dd'});
+
+    });
+  </script>
 
 
   <h3>Agregar Productos<h3>

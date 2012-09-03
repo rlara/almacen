@@ -1,13 +1,13 @@
 class OrdersController < ApplicationController
-  
+
 autocomplete :products_search, {:product => [:name, :sku]}
 
 
  before_filter :get_branch
+
   def get_branch
     @branch = Branch.find(params[:branch_id])
   end
-
 
   # GET /orders
   # GET /orders.json
@@ -25,8 +25,8 @@ autocomplete :products_search, {:product => [:name, :sku]}
   def show
     @order = Order.find(params[:id])
     @order_new = Order.new
-1.times {@order_new.order_details.build}
-
+    1.times {@order_new.order_details.build}
+    @order.update_attributes(status: 'completado')
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @order }
@@ -38,7 +38,6 @@ autocomplete :products_search, {:product => [:name, :sku]}
   def new
     @order = Order.new
     1.times {@order.order_details.build}
-    @condicion = 2
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @order }
@@ -51,9 +50,13 @@ autocomplete :products_search, {:product => [:name, :sku]}
     @condicion = 2
   end
 
-  def order_edit
-    @order = Order.find(params[:id])
-    @condicion = 1
+  def provision
+    @order = Order.new
+    1.times {@order.order_details.build}
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @order }
+    end
   end
 
   # POST /orders
@@ -61,15 +64,15 @@ autocomplete :products_search, {:product => [:name, :sku]}
   def create
     @order = @branch.orders.create(params[:order])
 
-    respond_to do |format|
-      if @order.save
-        format.html { redirect_to branch_path(@branch), notice: 'Order was successfully created.' }
-        format.json { render json: @order, status: :created, location: @order }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @order.save
+          format.html { redirect_to branch_path(@branch), notice: 'Order was successfully created.' }
+          format.json { render json: @order, status: :created, location: @order }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @order.errors, status: :unprocessable_entity }
+        end
       end
-    end
   end
 
   # PUT /orders/1
