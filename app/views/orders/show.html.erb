@@ -23,7 +23,7 @@
   <%= @order.dealer %>
 </p>
 
-
+<%= action_name  %>
 <h3>Productos</h3>
 
   <table class="table table-striped">
@@ -36,8 +36,8 @@
   <% for order_detail in @order.order_details %>
     <tbody>
       <tr>
-        <td><%#= order_detail.quantity  %></td>
-        <td><%#= order_detail.product.name  %></td>
+        <td><%= order_detail.quantity  %></td>
+        <td><%= order_detail.product.name  %></td>
         <td></td>
         <td></td>
         <td></td>
@@ -56,7 +56,6 @@
 
 <%= form_for([@branch, @order_new],:html=>{:class=>"form-inline"}) do |f| %>
  <fieldset>
-   <%  @var_errors = true%>
   <% if @order_new.errors.any? %>
       <ul>
       <% @order_new.errors.full_messages.each do |msg| %>
@@ -67,7 +66,7 @@
 <!-- Validar que es un pedido de una sucursal a otra --!>
 
 <%= f.hidden_field :atach,:value => @order.atach%>
-
+<%= f.hidden_field :action, :value => action_name  %>
 <% if @order.mode == '1' %>
   <%= f.hidden_field :mode, :value => '3' %>
 

@@ -5,7 +5,7 @@ class Order < ActiveRecord::Base
         attr_accessible :dealer, :destination, :atach, :user_id, :order_details_attributes, :mode, :product_id, :date, :status, :action
   validates :mode, :destination, :presence => true
 
-
+ attr_reader :action
   
   accepts_nested_attributes_for :order_details
   accepts_nested_attributes_for :moves

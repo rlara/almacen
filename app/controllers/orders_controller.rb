@@ -27,6 +27,9 @@ autocomplete :products_search, {:product => [:name, :sku]}
     @order_new = Order.new
     1.times {@order_new.order_details.build}
     @order.update_attributes(status: 'completado')
+    #unless session[:order_new] == nil
+	#@order_new=session[:order_new]
+    #end
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @order }
@@ -63,13 +66,20 @@ autocomplete :products_search, {:product => [:name, :sku]}
   # POST /orders.json
   def create
     @order = @branch.orders.create(params[:order])
-            respond_to do |format|
+    session[:order_new] = nil
+    respond_to do |format|
         if @order.save
           format.html { redirect_to branch_path(@branch), notice: 'Order was successfully created.' }
           format.json { render json: @order, status: :created, location: @order }
         else
-          format.html { redirect_to branch_order_path(@branch, @order.atach) }
-          format.json { render json: @order.errors, status: :unprocessable_entity }
+          if params[:order][:action] == "show"
+	  session[:order_new] = @order.errors		
+          	format.html { redirect_to branch_order_path(@branch, @order.atach) }
+          	format.json { render json: @order.errors, status: :unprocessable_entity }
+          else
+          	format.html { render "new" }
+          	format.json { render json: @order.errors, status: :unprocessable_entity }
+          end
         end
       end
 
