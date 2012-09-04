@@ -66,7 +66,7 @@ autocomplete :products_search, {:product => [:name, :sku]}
   # POST /orders.json
   def create
     @order = @branch.orders.create(params[:order])
-    session[:order_new] = nil
+    session[:order_new]
     respond_to do |format|
         if @order.save
           format.html { redirect_to branch_path(@branch), notice: 'Order was successfully created.' }
