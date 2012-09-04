@@ -62,18 +62,23 @@ autocomplete :products_search, {:product => [:name, :sku]}
   # POST /orders
   # POST /orders.json
   def create
-    @order = @branch.orders.create(params[:order])
 
-      respond_to do |format|
+    @catch_id = Order.find(params[:id])
+
+    @order = @branch.orders.create(params[:order])
+            respond_to do |format|
         if @order.save
           format.html { redirect_to branch_path(@branch), notice: 'Order was successfully created.' }
           format.json { render json: @order, status: :created, location: @order }
         else
-          format.html { render action: "new" }
+          format.html { redirect_to branch_order_path(@branch) }
           format.json { render json: @order.errors, status: :unprocessable_entity }
         end
       end
-  end
+
+
+
+end
 
   # PUT /orders/1
   # PUT /orders/1.json

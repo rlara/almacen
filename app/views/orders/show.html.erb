@@ -36,8 +36,8 @@
   <% for order_detail in @order.order_details %>
     <tbody>
       <tr>
-        <td><%= order_detail.quantity  %></td>
-        <td><%= order_detail.product.name  %></td>
+        <td><%#= order_detail.quantity  %></td>
+        <td><%#= order_detail.product.name  %></td>
         <td></td>
         <td></td>
         <td></td>
@@ -56,7 +56,7 @@
 
 <%= form_for([@branch, @order_new],:html=>{:class=>"form-inline"}) do |f| %>
  <fieldset>
-   <%  @var_errors == true%>
+   <%  @var_errors = true%>
   <% if @order_new.errors.any? %>
       <ul>
       <% @order_new.errors.full_messages.each do |msg| %>
