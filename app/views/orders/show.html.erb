@@ -55,11 +55,11 @@
 <h2>Atender Orden</h2>
 
 <%= form_for([@branch, @order_new],:html=>{:class=>"form-inline"}) do |f| %>
-  <% if @order.errors.any? %>
+  <% if @order_new.errors.any? %>
       <h2><%= pluralize(@order.errors.count, "error") %> prohibited this transfer from being saved:</h2>
 
       <ul>
-      <% @order.errors.full_messages.each do |msg| %>
+      <% @order_new.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
