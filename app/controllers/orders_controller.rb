@@ -24,13 +24,14 @@ autocomplete :products_search, {:product => [:name, :sku]}
   # GET /orders/1.json
   def show
     @order = Order.find(params[:id])
-    @order_new = Order.new
-    1.times {@order_new.order_details.build}
-    @errors = session[:order_new]
     @order.update_attributes(status: 'completado')
-    #session[:order_new].nil?
-	#@order_new=session[:order_new]
-    #end
+    unless session[:order_new].nil?
+      @order_new=session[:order_new]
+      session[:order_new] = nil
+    else
+      @order_new = Order.new
+      1.times {@order_new.order_details.build}
+    end
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @order }
