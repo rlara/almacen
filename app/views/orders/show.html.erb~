@@ -15,6 +15,11 @@
 
 <p style="font-size:18px">
   <b>Destino:</b>
+  <%= @order.destination %>
+</p>
+
+<p style="font-size:18px">
+  <b>Repartidor:</b>
   <%= @order.dealer %>
 </p>
 

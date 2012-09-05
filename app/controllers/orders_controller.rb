@@ -25,10 +25,10 @@ autocomplete :products_search, {:product => [:name, :sku]}
   def show
     @order = Order.find(params[:id])
     @order.update_attributes(status: 'completado')
-    unless session[:order_new].nil?
-      @order_new=session[:order_new]
-      session[:order_new] = nil
-    else
+    #unless session[:order_new].nil?
+     # @order_new=session[:order_new]
+      #session.delete(:order_new) 
+    #else
       @order_new = Order.new
       1.times {@order_new.order_details.build}
     end
