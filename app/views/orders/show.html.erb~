@@ -15,11 +15,6 @@
 
 <p style="font-size:18px">
   <b>Destino:</b>
-  <%= @order.destination %>
-</p>
-
-<p style="font-size:18px">
-  <b>Repartidor:</b>
   <%= @order.dealer %>
 </p>
 
@@ -56,7 +51,11 @@
 
 <%= form_for([@branch, @order_new],:html=>{:class=>"form-inline"}) do |f| %>
   <% if @order_new.errors.any? %>
+<<<<<<< HEAD
       <h2><%= pluralize(@order_new.errors.count, "error") %> prohibited this transfer from being saved:</h2>
+=======
+      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this transfer from being saved:</h2>
+>>>>>>> 8214122b211e91793ad7eefab8ea2d5ff02d36a9
 
       <ul>
       <% @order_new.errors.full_messages.each do |msg| %>

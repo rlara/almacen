@@ -18,7 +18,6 @@
   <%= @order.dealer %>
 </p>
 
-<%= action_name  %>
 <h3>Productos</h3>
 
   <table class="table table-striped">
@@ -51,7 +50,8 @@
 
 <%= form_for([@branch, @order_new],:html=>{:class=>"form-inline"}) do |f| %>
   <% if @order_new.errors.any? %>
-      <h2><%= pluralize(@order_new.errors.count, "error") %> prohibited this transfer from being saved:</h2>
+
+      <h2><%= pluralize(@order_new.errors.count, "error") %> prohibited this transfer from being saved:</h2>9
 
       <ul>
       <% @order_new.errors.full_messages.each do |msg| %>
@@ -60,7 +60,7 @@
       </ul>
   <% end %>
 <fieldset>
-Validar que es un pedido de una sucursal a otra 
+  <!--Validar que es un pedido de una sucursal a otra --!>
 
 <%= f.hidden_field :atach,:value => @order.atach%>
 <%= f.hidden_field :action, :value => action_name  %>
