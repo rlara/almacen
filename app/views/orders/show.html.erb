@@ -56,13 +56,10 @@
 
 <%= form_for([@branch, @order_new],:html=>{:class=>"form-inline"}) do |f| %>
  <fieldset>
-  <% if @order_new.errors.any? %>
       <ul>
-      <% @order_new.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <%= @errors.errors %>
+
       </ul>
-  <% end %>
 <!-- Validar que es un pedido de una sucursal a otra --!>
 
 <%= f.hidden_field :atach,:value => @order.atach%>
