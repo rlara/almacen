@@ -1,5 +1,5 @@
 
-<%= form_for([@branch, @order],:html=>{:class=>"well"}) do |f| %>
+<%= form_for([@branch, @order],:html=>{:class=>"well form-inline"}) do |f| %>
   <% if @order.errors.any? %>
       <h2><%= pluralize(@order.errors.count, "error") %> prohibited this transfer from being saved:</h2>
 
@@ -13,7 +13,7 @@
 
   <fieldset>
 
-    <% if params[:m] == "1"  %>
+    <% if action_name == "new"  %>
 
       <%= f.hidden_field :mode, :value => 1  %>
       <%= f.hidden_field :status, :value => 'pending'  %>
@@ -31,23 +31,13 @@
 
   <div class="control-group">
   <%= f.label 'Destino Entrada', :class=>"control-label" %>
-    <div class="controls">
       <%= f.collection_select(:destination, Branch.all, :id, :name) %>
-    </div>
-  </div>
 
-  <div class="control-group">
   <%= f.label 'Repartidor', :class=>"control-label" %>
-    <div class="controls">
       <%= f.select(:dealer, Order::DEALER.collect {|cat| [cat,cat] },{:include_blank=>true}) %>
-    </div>
-  </div>
 
-  <div class="control-group">
     <%= f.label 'Fecha', :class=>"control-label" %>
-   <div class="controls">
      <%= f.text_field :date %>
-     </div>
    </div>
   <script type="text/javascript">
     $(document).ready(function () {
@@ -63,7 +53,7 @@
   <h3>Agregar Productos</h3>
       <form class="well form-inline">
       <%= f.fields_for :order_details do |builder|  %>
-        <%= render 'order_detail_fields', {:f => builder, :condicion=>@condicion} %>
+        <%= render 'order_detail_fields', {:f => builder} %>
       <% end %>
     </form>
       <div id="onenter">

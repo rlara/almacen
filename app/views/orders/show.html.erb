@@ -15,7 +15,7 @@
 
 <p style="font-size:18px">
   <b>Destino:</b>
-  <%= @order.dealer %>
+  <%= @order.destination %>
 </p>
 
 <h3>Productos</h3>
@@ -42,17 +42,14 @@
       </tr>
     </tbody>
   <% end %>
-  </table>
-
-</form>
+</table>
+  </form>
 
 <h2>Atender Orden</h2>
-
 <%= form_for([@branch, @order_new],:html=>{:class=>"form-inline"}) do |f| %>
   <% if @order_new.errors.any? %>
 
-      <h2><%= pluralize(@order_new.errors.count, "error") %> prohibited this transfer from being saved:</h2>9
-
+      <h2><%= pluralize(@order_new.errors.count, "error") %> prohibited this transfer from being saved:</h2>
       <ul>
       <% @order_new.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -79,10 +76,10 @@
 
   <div class="control-group">
   <%= f.label 'Destino Entrada', :class=>"control-label" %>
-    <%= f.collection_select(:destination, Branch.all, :id, :name) %>
+  <%= f.collection_select(:destination, Branch.all, :id,:name,:selected => @order.id) %>
 
-      <%= f.select(:dealer, Order::DEALER.collect {|cat| [cat,cat] },{:prompt=>'Selecciona el Repartidor'}) %>
-      <%= f.text_field :date, :placeholder => 'Seleciona la Fecha' %>
+  <%= f.select(:dealer, Order::DEALER.collect {|cat| [cat,cat] },{:prompt=>'Selecciona el Repartidor', :selected => @order.dealer })%>
+  <%= f.text_field :date, :value => @order.date %>
    </div>
   <script type="text/javascript">
     $(document).ready(function () {
@@ -95,18 +92,22 @@
 
 
   <h3>Agregar Productos<h3>
-      <form class="well form-inline">
+
+    <form class="well form-inline">
       <%= f.fields_for :order_details do |builder|  %>
-        <%= render 'order_detail_fields', {:f => builder, :condicion=>@condicion} %>
+          <%= render :partial =>'order_detail_fields', :locals => {:f => builder} %>
       <% end %>
     </form>
-      <div id="onenter">
+
+    <div id="onenter">
       <%= link_to_add_fields "+", f, :order_details %>
-      </div>
-  <div class="form-actions">
+    </div>
+
+    <div class="form-actions">
     <%= f.submit 'Guardar', :class=>"btn btn-primary"%>
     <%= link_to 'Regresar', branch_path(@branch), :class=>"btn" %>
-  </div>
+    </div>
+
   </fieldset>
 <% end %>
 

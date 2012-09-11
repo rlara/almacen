@@ -29,8 +29,12 @@ autocomplete :products_search, {:product => [:name, :sku]}
       @order_new=session[:order_new]
       session[:order_new] = nil
     else
+     @product_name = []
       @order_new = Order.new
-      1.times {@order_new.order_details.build}
+      @order.order_details.each do |p|
+        product_var = @order_new.order_details.build
+        product_var.product_id = p.product_id
+      end
     end
     respond_to do |format|
       format.html # show.html.erb
