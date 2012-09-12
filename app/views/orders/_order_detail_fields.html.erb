@@ -3,12 +3,9 @@
   <%= f.text_field :quantity, :class=>"input-small", :placeholder=>'Cantidad', :value=>1 %>
 
   <% if action_name == "show"  %>
-
-    <% if f.object.product_id.to_i.integer? %>
-      <%= Product.find(f.object.product_id.abs).description %>
-
-  <% end  %>
-
+    <% if f.object.product_id  %>
+      <%= Product.find_by_id(f.object.product_id).name %>
+    <% end  %>
  <% else %>
     <%= text_field_tag :product_name, nil, {:autocomplete => autocomplete_products_search_branch_orders_path, :class => "enp" }%>
 
@@ -16,7 +13,7 @@
 
   <%= f.hidden_field :product_id, :id => 'product_id'  %>
 
-    <%= f.text_area :note, :rows=>"1", :placeholder=>'Agrega una Nota' %>
+   <%= f.text_area :note, :rows=>"1", :placeholder=>'Agrega una Nota' %>
     <%= link_to_remove_fields "_", f %>
 </div>
 

@@ -1,5 +1,4 @@
 class OrdersController < ApplicationController
-
 autocomplete :products_search, {:product => [:name, :sku]}
 
 
@@ -34,6 +33,7 @@ autocomplete :products_search, {:product => [:name, :sku]}
       @order.order_details.each do |p|
         product_var = @order_new.order_details.build
         product_var.product_id = p.product_id
+        product_var.quantity = p.quantity
       end
     end
     respond_to do |format|
