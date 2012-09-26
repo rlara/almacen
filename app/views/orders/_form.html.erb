@@ -13,25 +13,25 @@
 
   <fieldset>
 
-    <% if action_name == "new"  %>
+    <%# if action_name == "new"  %>
 
-      <%= f.hidden_field :mode, :value => 1  %>
-      <%= f.hidden_field :status, :value => 'pending'  %>
+      <%= f.hidden_field :mode, :value => '1'  %>
+    <%= f.hidden_field :status, :value => 'pending'  %>
 
-    <% else %>
+    <%# else %>
 
-      <div class="control-group">
-      <%= f.label 'Tipo de transferencia', :class=>"control-label" %>
+     <!-- <div class="control-group">
+      <#%= f.label 'Tipo de transferencia', :class=>"control-label" %>
         <div class="controls">
-        <%= f.select :mode,options_for_select([['Salida a OtraSucursal',1],['Salida a SiMismo',2],['Entrada de OtraSucursal',3],['Entrada de Proveedor',4],['Entrada de simismo',5]]), :include_blank=>true %>
+        <#%= f.select :mode,options_for_select([['Salida a OtraSucursal',1],['Salida a SiMismo',2],['Entrada de OtraSucursal',3],['Entrada de Proveedor',4],['Entrada de simismo',5]]), :include_blank=>true %>
         </div>
-      </div>
+        </div> --!>
 
-    <% end %>
+    <%# end %>
 
   <div class="control-group">
   <%= f.label 'Destino Entrada', :class=>"control-label" %>
-      <%= f.collection_select(:destination, Branch.all, :id, :name) %>
+  <%= f.collection_select(:destination, Branch.all, :id, :name) %>
 
   <%= f.label 'Repartidor', :class=>"control-label" %>
       <%= f.select(:dealer, Order::DEALER.collect {|cat| [cat,cat] },{:include_blank=>true}) %>

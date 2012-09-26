@@ -1,0 +1,21 @@
+
+<h3>Productos</h3>
+   <%= form_for(@move) do |f| %>
+        <td><%#= order_detail.quantity  %></td>
+        <td><%#= order_detail.product.name  %></td>
+
+      <% for order_detail in @order.order_details %>
+      <%= f.hidden_field :branch_id, :value => @branch.id %>
+      <%= f.hidden_field :product_id, :value => order_detail.product_id%>
+      <%= f.hidden_field :order_id, :value => @order.id %>
+      <%= f.hidden_field :entry, :value => order_detail.quantity %>
+      <% end %>
+
+      <% f.submit %>
+      <% end %>
+
+<script type="text/javascript" charset="utf-8">
+//$(document).ready(function() {
+//$("form").submit();
+//});
+</script>

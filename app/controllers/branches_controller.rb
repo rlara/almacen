@@ -13,23 +13,19 @@ class BranchesController < ApplicationController
   # GET /branches/1
   # GET /branches/1.json
   def show
-
-
     @branch = Branch.find(params[:id])
-
-    @product = Product.all
+    unless session[:change_status].nil?
+      @ord = session[:change_status]
+      session[:change_status] = nil
+      if Order.where(:atach => @ord.atach).count == 2
+        @ord.update_attributes(:status => 'completado')
+      end
+    end
     #Ver todas las salidas de la sucursal
-    @order_list_entry = Order.where(:destination=>(params[:id]))
+    @orders = Order.where(:branch_id => (params[:id]), :mode => '1')
     #Ver todas las entradas de la sucursal
+    @order_list_entry = Order.where(:branch_id=>(params[:id]), :mode => ['3','2'])
     @orders_entry_pending = Order.where(:destination =>(params[:id]), :status => 'pending')
-    #Ver las ordenes pendientes de una sucursal
-    # @ver_orden = Order.where(:destination =>(params[:id]), :status => 'pending')
-    # mando estos parametros cuando sea una salida el campo mode=1 cuando sea entrada mode=2
-    @s = "1"
-    @e= "2"
-
-
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @branch }

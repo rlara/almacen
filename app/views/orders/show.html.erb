@@ -79,6 +79,7 @@
   <%= f.collection_select(:destination, Branch.all, :id,:name,:selected => @order.id) %>
 
   <%= f.select(:dealer, Order::DEALER.collect {|cat| [cat,cat] },{:prompt=>'Selecciona el Repartidor', :selected => @order.dealer })%>
+
   <%= f.text_field :date, :value => @order.date %>
    </div>
   <script type="text/javascript">

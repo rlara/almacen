@@ -81,12 +81,7 @@ autocomplete :products_search, {:product => [:name, :sku]}
   # Entrada de proveedor /orders/provision
   def stock
     @order = Order.new
-    @moves = Move.where(:branch_id => params[:branch_id])
-    @moves.each do |m|
-      product_stock = @order.order_details.build
-      product_stock.product_id = m.product_id
-      product_stock.quantity = m.existence
-    end
+    @moves = Move.all
     respond_to do |format|
       format.html # provision.html.erb
       format.json { render json: @order }

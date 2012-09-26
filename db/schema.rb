@@ -25,12 +25,7 @@ ActiveRecord::Schema.define(:version => 20120912202600) do
     t.integer  "product_id"
     t.integer  "order_id"
     t.integer  "branch_id"
-    t.integer  "entry"
-    t.integer  "output"
     t.integer  "existence"
-    t.decimal  "amount_d"
-    t.decimal  "amount_h"
-    t.decimal  "amount_s"
     t.datetime "date_move"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -43,7 +38,7 @@ ActiveRecord::Schema.define(:version => 20120912202600) do
   create_table "order_details", :force => true do |t|
     t.integer  "order_id"
     t.integer  "product_id"
-    t.string   "quantity"
+    t.integer  "quantity"
     t.text     "note"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

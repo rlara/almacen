@@ -41,7 +41,6 @@
         $('#product_date').datepicker();
         $('#product_date').datepicker('option', {dateFormat: 'yy-mm-dd'});
         $("#startDate").datepicker({dateFormat: 'yy-mm-dd'});
-
     });
 
   </script>
@@ -56,6 +55,13 @@
     <%= f.label 'Precio', :class=>"control-label"%>
     <div class="controls">
       <%= f.number_field :price, :class=>"input-xlarge" %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label 'Categoria', :class=>"control-label"%>
+    <div class="controls">
+      <%= f.select(:category, Product::CATEGORY.collect{|cat| [cat,cat]} ) %>
     </div>
   </div>
 

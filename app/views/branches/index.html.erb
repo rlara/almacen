@@ -10,6 +10,7 @@
 
       <th>Nombre</th>
       <th>Ubicación</th>
+      <th>Proveedor</th>
       <th></th>
       <th></th>
       <th></th>
@@ -20,6 +21,11 @@
     <tr>
       <td><%= branch.name %></td>
       <td><%= branch.location %></td>
+      <% if branch.provider == true %>
+        <td>si</td>
+      <% else %>
+        <td>no</td>
+      <% end %>
       <td><%= link_to 'Show', branch %></td>
       <td><%= link_to 'Edit', edit_branch_path(branch) %></td>
       <td><%= link_to 'Destroy', branch, confirm: 'Are you sure?', method: :delete %></td>

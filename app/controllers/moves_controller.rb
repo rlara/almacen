@@ -44,7 +44,7 @@ class MovesController < ApplicationController
 
     respond_to do |format|
       if @move.save
-        format.html { redirect_to @move, notice: 'Move was successfully created.' }
+        format.html { redirect_to branch_path(@move.branch_id), notice: 'Move was successfully created.' }
         format.json { render json: @move, status: :created, location: @move }
       else
         format.html { render action: "new" }

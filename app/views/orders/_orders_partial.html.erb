@@ -1,21 +1,9 @@
 <% list_ord.each do |ord| %>
-<table class="table table-condensed">
-  <thead>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-</thead>
-
 <tbody>
   <tr>
     <td><%= ord.mode %></td>
     <td><%= ord.branch.name  %></td>
-    <td><%= link_to 'Show', branch_order_path(@branch,ord), :class=>"btn btn-primary" %></td>
+    <td><%= Branch.find_by_id(ord.destination).name %></td>
   </tr>
 </tbody>
-</table>
-
-
 <% end  %>

@@ -1,8 +1,13 @@
 Almacen::Application.routes.draw do
+
   resources :moves
   resources :products
 
   get "branches/:branch_id/orders/provision" => 'orders#provision', :as=>'provision' do
+    resources :order_details
+  end
+
+  get "branches/:branch_id/orders/stock" => 'orders#stock', :as=>'stock' do
     resources :order_details
   end
 
@@ -11,9 +16,9 @@ Almacen::Application.routes.draw do
       resources :order_details
       get :autocomplete_products_search, :on => :collection
     end
-    match "/orders/:id/order_edit" => "orders#order_edit", :as => 'entry' do
-      resources :order_details
-    end
+    post "/stock" => 'orders#create_stock'
+    post "/provision" => 'orders#create_prov'
+    get "/orders/:id/mov" => 'orders#new_mov', :as => 'mov_prod'
   end
 
   # The priority is based upon order of creation:

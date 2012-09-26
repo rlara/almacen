@@ -3,7 +3,7 @@ class CreateOrderDetails < ActiveRecord::Migration
     create_table :order_details do |t|
       t.references :order
       t.references :product
-      t.string :quantity
+      t.integer :quantity
       t.text :note
 
       t.timestamps
