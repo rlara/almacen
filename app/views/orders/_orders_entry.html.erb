@@ -4,7 +4,7 @@
   <tr>
     <td><%= ord.mode %></td>
     <td><%= ord.branch.name %></td>
-    <td></td>
+    <td><%= link_to 'show', branch_mov_prod_path(@branch,ord), :class=>"btn btn-primary" %></td>
     <td></td>
     <td></td>
   </tr>

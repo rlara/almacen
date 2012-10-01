@@ -1,3 +1,22 @@
+<div class="row-fluid">
+  <div class="span3">
+    <form class="form well">
+        <h3>Movimiento</h3>
+        <ul style="list-style:none">
+          <li><%=link_to "Enviar", new_branch_order_path(@branch), :class=>"btn btn-success" %></li>
+          <br/>
+          <li><%=link_to "Entrada-Proveedor", provision_path(@branch), :class=>"btn btn-success" %></li>
+          <br/>
+          <li><%=link_to "Cierre del dia", stock_path(@branch), :class=>"btn btn-primary" %></li>
+          <br/>
+          <li><%= link_to 'Agregar Producto',  new_product_path, :class=>"btn btn-success", :target=>"_blank"  %></li>
+
+        </ul>
+    </form>
+  </div>
+
+
+  <div class="span9">
 <script type="text/javascript">
     $('input.enp:last').live('keyup',function(e){
       if(e.keyCode == 13) {
@@ -12,13 +31,6 @@
   <b>Sucursal:</b>
   <%= @order.branch.name %>
 </p>
-
-<p style="font-size:18px">
-  <b>Destino:</b>
-  <%= @order.destination %>
-</p>
-
-<h3>Productos</h3>
 
   <table class="table table-striped">
   <thead>
@@ -111,5 +123,5 @@
 
   </fieldset>
 <% end %>
-
-
+  </div>
+</div>

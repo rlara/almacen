@@ -4,6 +4,8 @@
     <td><%= ord.mode %></td>
     <td><%= ord.branch.name  %></td>
     <td><%= Branch.find_by_id(ord.destination).name %></td>
+    <td><%= link_to 'Show', branch_mov_prod_path(@branch,ord), :class=>"btn btn-primary"%></td>
+
   </tr>
 </tbody>
 <% end  %>

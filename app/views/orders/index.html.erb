@@ -1,31 +1,30 @@
-<h1>Listing orders</h1>
-
-<table>
+<h1>Lista de ordenes</h1>
+<div class="span10">
+<table class="table table-bordered">
   <tr>
-    <th>Branch</th>
-    <th>Status</th>
-    <th>Destination</th>
-    <th>User</th>
-    <th>Dealer</th>
-    <th></th>
-    <th></th>
+    <th>Sucursal</th>
+    <th>TipoMovimiento</th>
+    <th>Destino</th>
+    <th>Repartidor</th>
     <th></th>
   </tr>
 
 <% @orders.each do |order| %>
   <tr>
-    <td><%= order.branch %></td>
-    <td><%= order.status %></td>
-    <td><%= order.destination %></td>
-    <td><%= order.user_id %></td>
-    <td><%= order.dealer %></td>
-    <td><%= link_to 'Show', order %></td>
-    <td><%= link_to 'Edit', edit_order_path(order) %></td>
-    <td><%= link_to 'Destroy', order, confirm: 'Are you sure?', method: :delete %></td>
+      <td><%= order.branch.name %></td>
+      <% if order.mode == "1" %>
+        <td>Salida</td>
+      <% elsif order.mode == "3" %>
+        <td>Entrada(Transferencia)</td>
+      <% elsif order.mode == "2" %>
+        <td>Entrada(Proveedor)</td>
+      <% end %>
+      <td><%= order.destination %></td>
+      <td><%= order.dealer %></td>
+    <td><%= link_to 'Show', branch_mov_prod_path(@branch,order) %></td>
+
   </tr>
 <% end %>
 </table>
+</div>
 
-<br />
-
-<%= link_to 'New Order', new_order_path %>

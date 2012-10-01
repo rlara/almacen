@@ -22,7 +22,12 @@ autocomplete :products_search, {:product => [:name, :sku]}
 
   def new_mov
     @order = Order.find(params[:id])
-    @move = Move.new
+    @dif_ord = Order.find(@order.atach)
+    @total = 0
+    @order.order_details.each do |prod|
+      suma = prod.price * prod.quantity
+      @total = @total + suma
+    end
     respond_to do |format|
       format.html
       format.json {render json: @order}
@@ -101,7 +106,7 @@ autocomplete :products_search, {:product => [:name, :sku]}
     @order = @branch.orders.create(params[:order])
     respond_to do |format|
         if @order.save
-          format.html { redirect_to branch_path(@branch), notice: 'Order was successfully created.' }
+          format.html { redirect_to branch_mov_prod_path(@branch,@order), notice: 'Order was successfully created.' }
           format.json { render json: @order, status: :created, location: @order }
         else
           if params[:order][:action] == "show"

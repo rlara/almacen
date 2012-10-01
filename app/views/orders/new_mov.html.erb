@@ -1,21 +1,40 @@
+<div class="span6">
+  <p>
+    <b>Origen:</b>
+    <%= @order.branch.name %>
+  </p>
+  <p>
+    <b>Destino:</b>
+    <%= Branch.find_by_id(@order.destination).name %>
+  </p>
+  <p>
+    <b>Hora creación:</b>
+    <%= @order.created_at.strftime("%I:%M %P") %>
+  </p>
 
-<h3>Productos</h3>
-   <%= form_for(@move) do |f| %>
-        <td><%#= order_detail.quantity  %></td>
-        <td><%#= order_detail.product.name  %></td>
+  <h3>Productos</h3>
+  <div class="well">
 
-      <% for order_detail in @order.order_details %>
-      <%= f.hidden_field :branch_id, :value => @branch.id %>
-      <%= f.hidden_field :product_id, :value => order_detail.product_id%>
-      <%= f.hidden_field :order_id, :value => @order.id %>
-      <%= f.hidden_field :entry, :value => order_detail.quantity %>
+    <% for order_detail in @order.order_details %>
+      <p>
+      <td><b>Cantidad:</b><%= order_detail.quantity  %></td>
+      <td><%= order_detail.product.name  %></td>
+      <% if @order.mode == "3" %>
+        <% @dif = OrderDetail.find_by_order_id_and_product_id(@dif_ord.id,order_detail.product_id) %>
+        <td><b>Diferencia:</b><%= order_detail.quantity - @dif.quantity %></td>
+
+        <td><b> Nota: <%= @dif.note %> </b></td>
       <% end %>
+    </p>
+    <% end %>
 
-      <% f.submit %>
-      <% end %>
+    <p>
+      Total : $
+      <%= @total%>
+    </p>
+  </div>
+       <%= link_to 'Aceptar', branch_path(@branch), :class=>"btn" %>
 
-<script type="text/javascript" charset="utf-8">
-//$(document).ready(function() {
-//$("form").submit();
-//});
-</script>
+</div>
+
+

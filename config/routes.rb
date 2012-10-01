@@ -19,6 +19,7 @@ Almacen::Application.routes.draw do
     post "/stock" => 'orders#create_stock'
     post "/provision" => 'orders#create_prov'
     get "/orders/:id/mov" => 'orders#new_mov', :as => 'mov_prod'
+
   end
 
   # The priority is based upon order of creation:
