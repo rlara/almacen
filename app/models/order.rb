@@ -21,7 +21,11 @@ before_save :create_atach
     if self.mode == "2"
       self.order_details.each do |od|
         precio = Product.find_by_id(od.product_id)
-        precio.update_attributes(:price => od.price)
+        if od.price == nil
+          od.price = precio.price
+        else
+          precio.update_attributes(:price => od.price)
+        end
       end
     else
       self.order_details.each do |od|
