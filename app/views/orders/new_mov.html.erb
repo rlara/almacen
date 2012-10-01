@@ -23,7 +23,7 @@
         <% @dif = OrderDetail.find_by_order_id_and_product_id(@dif_ord.id,order_detail.product_id) %>
         <td><b>Diferencia:</b><%= order_detail.quantity - @dif.quantity %></td>
 
-        <td><b> Nota: <%= @dif.note %> </b></td>
+        <td><b> Nota: <%= order_detail.note %> </b></td>
       <% end %>
     </p>
     <% end %>
