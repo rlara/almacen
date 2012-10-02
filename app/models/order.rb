@@ -64,9 +64,6 @@ before_save :create_atach
     end
   end
 
-
-
-
   DEALER = ['Roberto','Sergio','Carlos']
 
   class << self
