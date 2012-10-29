@@ -1,5 +1,13 @@
 Almacen::Application.routes.draw do
 
+  devise_for :admins
+
+  get "pagehome/home"
+
+  get "pagehome/users"
+
+  devise_for :users, :controllers => {:registrations => "users/registrations", :sessions => "users/sessions"}
+
   resources :moves
   resources :products
 
@@ -19,8 +27,9 @@ Almacen::Application.routes.draw do
     post "/stock" => 'orders#create_stock'
     post "/provision" => 'orders#create_prov'
     get "/orders/:id/mov" => 'orders#new_mov', :as => 'mov_prod'
-
-  end
+    get "/report" => 'orders#reports', :as => 'report_day'
+    get "/date_reports" => 'orders#date_reports', :as => 'date_reports'
+ end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -71,7 +80,7 @@ Almacen::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-   root :to => 'branches#index'
+   root :to => 'pagehome#home'
 
   # See how all your routes lay out with "rake routes"
 

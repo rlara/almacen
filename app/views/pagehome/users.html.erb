@@ -1,0 +1,19 @@
+<h1>Lista de Usuarios</h1>
+<div class="span10">
+<table class="table table-bordered">
+  <tr>
+    <th>Email</th>
+    <th>Bloqueado</th>
+  </tr>
+
+<% @users.each do |user| %>
+  <tr>
+    <td><%= user.email %></td>
+    <td><%= user.admin %></td>
+    <td><%= link_to "edit", edit_user_registration_path %></td>
+  </tr>
+<% end %>
+</table>
+<%= link_to 'Crear', new_user_registration_path %>
+</div>
+

@@ -1,5 +1,5 @@
 class BranchesController < ApplicationController
-  # GET /branches
+# GET /branches
   # GET /branches.json
   def index
     @branches = Branch.all
@@ -13,24 +13,24 @@ class BranchesController < ApplicationController
   # GET /branches/1
   # GET /branches/1.json
   def show
-
-	
     @branch = Branch.find(params[:id])
-
-   @product = Product.all
-
-   @move_list_entry = Move.where(:branch_id=>(params[:id]))
-
-    @orders_entry_pending = Order.where(:destination =>(params[:id]))
-
-    @ver_orden = Order.where(:atach => 'a').count
-    render :layout => "container_fluid" 
-
+    unless session[:change_status].nil?
+      @ord = session[:change_status]
+      session[:change_status] = nil
+      if Order.where(:atach => @ord.atach).count == 2
+        @ord.update_attributes(:status => 'completado')
+      end
+    end
+    #Ver todas las salidas de la sucursal
+    @orders = Order.where(:branch_id => (params[:id]), :mode => '1')
+    #Ver todas las entradas de la sucursal
+    @order_list_entry = Order.where(:branch_id=>(params[:id]), :mode => ['3','2'])
+    @orders_entry_pending = Order.where(:destination =>(params[:id]), :status => 'pending')
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @branch }
     end
-   
+
   end
 
   # GET /branches/new
@@ -41,6 +41,17 @@ class BranchesController < ApplicationController
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @branch }
+    end
+  end
+
+
+  def date_reports
+    @branch = Branch.find(params[:branch_id])
+    @search = @branch.orders.search(params[:search])
+    @orders = @search.all
+    respond_to do |format|
+      format.html
+      format.json {render json: @branch}
     end
   end
 

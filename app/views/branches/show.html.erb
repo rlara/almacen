@@ -1,5 +1,4 @@
-
-  <p id="notice"><%= notice %></p>
+<p id="notice"><%= notice %></p>
 
 <p style="font-size:15px">
   <b>Nombre:</b>
@@ -9,9 +8,9 @@
 <p style="font-size:15px">
   <b>Ubicación:</b>
   <%= @branch.location %>
-  <%= link_to 'Edit', edit_branch_path(@branch), :class=>"btn" %>
+  <%= link_to 'Editar', edit_branch_path(@branch), :class=>"btn" %>
 
-  <%= link_to 'Back', branches_path, :class=>"btn" %>
+  <%= link_to 'Regresar', branches_path, :class=>"btn" %>
 </p>
 
 <div class="row-fluid">
@@ -20,13 +19,17 @@
     <form class="form well">
         <h3>Movimiento</h3>
         <ul style="list-style:none">
-          <li><%=link_to "Enviar", new_branch_order_path(@branch), :class=>"btn btn-success" %></li>
+          <li><%=link_to "Enviar", new_branch_order_path(@branch), :class=>"btn btn-success", :style => "width:100px" %></li>
           <br/>
           <li><%=link_to "Entrada-Proveedor", provision_path(@branch), :class=>"btn btn-success" %></li>
           <br/>
-          <li><%#=link_to "Cierre del dia", stock_path(@branch), :class=>"btn btn-primary" %></li>
+          <li><%=link_to "Cierre del dia", stock_path(@branch), :class=>"btn btn-primary", :style => "width:100px" %></li>
           <br/>
           <li><%=link_to "Lista de Ordenes", branch_orders_path(@branch), :class=>"btn btn-primary" %></li>
+          <br/>
+          <li><%=link_to "Reporte del dia", branch_report_day_path(@branch), :class=>"btn btn-primary", :style => "width:100px" %></li>
+          <br/>
+          <li><%=link_to "Reporte por periodo", branch_date_reports_path(@branch), :class=>"btn btn-primary" %></li>
 
         </ul>
   </div>
