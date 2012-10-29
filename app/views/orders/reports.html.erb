@@ -1,0 +1,67 @@
+<div style="margin:0px 10px 50px">
+  <h2>Sucursal : <%= @branch.name  %></h2>
+  <%= link_to 'Regresar', branch_path(@branch), :class=>"btn" %>
+</div>
+
+<% if @orders_r.empty? %>
+  <h4 align="center">No se han Registrado Movimientos</h4>
+<% else %>
+<div class="span8">
+  <h3>Final del dia</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Cantidad Cierre</th>
+          <th>Diferencia</th>
+        </tr>
+      </thead>
+
+      <tbody>
+    <% unless @order_close.nil? %>
+      <% @order_close.order_details.each do |product|%>
+        <tr>
+        <td><b><%= product.product.name  %></b>
+        </td>
+        <td><%= product.quantity %></td>
+        <% next_day = StockM.find_by_product_id_and_branch_id_and_day(product.product_id, @order_close.branch_id, @order_close.date.cwday+1)%>
+        <td><%= dif = next_day.quantity - product.quantity%></td>
+        </tr>
+      <% end %>
+    <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="span3">
+    <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Tipo de Movimiento</th>
+        <th>Destino</th>
+    </thead>
+    <% @orders_r.each do |order_report| %>
+    <tbody>
+      <tr>
+        <% if  order_report.mode == "1"  %>
+          <td>Salida(Sucursal)</td>
+        <% elsif order_report.mode == "2" %>
+          <td>Entrada(Proveedor)</td>
+        <% elsif order_report.mode == "3" %>
+          <td>Entrada(Sucursal)</td>
+        <% elsif order_report.mode == "4" %>
+          <td>Cierre(sucursal)</td>
+        <% elsif order_report.mode == "5" %>
+          <td>Salida(Cierre)</td>
+        <% elsif order_report.mode == "6" %>
+          <td>Entrada(Cierre)</td>
+        <% end %>
+        <% name_dest = order_report.destination  %>
+        <td><%= Branch.find(order_report.destination).name  %></td>
+      </tr>
+    </tbody>
+    <% end %>
+  </table>
+
+</div>
+<% end %>
+

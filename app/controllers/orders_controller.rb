@@ -12,13 +12,40 @@ autocomplete :products_search, {:product => [:name, :sku]}
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
-
+    @orders = @branch.orders.paginate(:page=>params[:page], :per_page=>20)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @orders }
     end
   end
+
+  def reports
+    @orders_r = @branch.orders.where(:date=> Date.today).order("created_at desc")
+    @order_close = @branch.orders.find_by_mode_and_date("4",Date.today)
+
+    respond_to do |format|
+      format.html
+      format.json {render json: @order}
+    end
+  end
+
+
+
+
+  def date_reports
+    unless params[:orders_r].nil?
+      dstart = params[:orders_r][:date]
+      dend = params[:orders_r][:datend]
+      @prod = params[:orders_r][:product_id]
+      @orders = @branch.orders.find(:all, :conditions => ['date >= ? AND date <= ?',dstart,dend])
+    end
+    respond_to do |format|
+      format.html
+      format.json {render json: @orders_r}
+    end
+  end
+
+
 
   def new_mov
     @order = Order.find(params[:id])

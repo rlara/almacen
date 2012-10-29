@@ -1,0 +1,69 @@
+<div style="margin:0px 10px 50px">
+  <h2>Sucursal : <%= @branch.name  %></h2>
+  <%= link_to 'Regresar', branch_path(@branch), :class=>"btn" %>
+</div>
+
+
+<%= form_for :orders_r, :url => branch_date_reports_path(@branch), :html =>{:method=>:get} do |f| %>
+    Inicio
+    <%= f.text_field :date%>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#orders_r_date').datepicker();
+        $('#orders_r_date').datepicker('option', {dateFormat: 'yy-mm-dd'});
+        $("#startDate").datepicker({dateFormat: 'yy-mm-dd'});
+
+      });
+    </script>
+
+    Fin
+    <%= f.text_field :datend %>
+
+    Producto
+    <%= f.collection_select :product_id, Product.all, :id, :name, :prompt => true %>
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $('#orders_r_datend').datepicker();
+        $('#orders_r_datend').datepicker('option', {dateFormat: 'yy-mm-dd'});
+        $("#startDate").datepicker({dateFormat: 'yy-mm-dd'});
+
+    });
+  </script>
+
+    <%= f.submit 'Ver' %>
+  <% end %>
+
+<div class="span8">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>TipoOrden</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% unless @orders.nil? %>
+      <% @orders.each do |orden| %>
+        <% unless @prod.blank? %>
+          <% var = OrderDetail.find_by_product_id_and_order_id(@prod,orden.id) %>
+          <tr>
+            <td><%= var.product.name  %></td>
+            <td><%= var.quantity  %></td>
+            <td><%= orden.mode  %></td>
+          </tr>
+        <% else %>
+          <% orden.order_details.each do |product| %>
+            <tr>
+              <td><%= product.product.name %></td>
+              <td><%= product.quantity %>
+              <td><%= orden.mode  %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+    </tbody>
+  </table>
+</div>

@@ -7,7 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
- <header>
+<header>
 <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
@@ -17,27 +17,33 @@
           <li class="active">
             <%= link_to 'Home', branches_path  %>
           </li>
-
           <li >
             <%= link_to 'Productos', products_path %>
-          </li>
-
           <li>
           </li>
-
-
         </ul>
         <ul class="nav pull-right">
-          <li>
-            <a href="#">Sign in</a>
-          </li>
+          <% if user_signed_in? %>
+            <li><a><%= current_user.email %></a></li>
+            <li><%= link_to "Salir", destroy_user_session_path, :method => :delete  %></li>
+          <% else %>
+            <li><%= link_to 'Iniciar sesion', new_user_session_path  %></li>
+          <% end %>
+
+          <% if admin_signed_in? %>
+            <li><a><%= current_admin.email  %></a></li>
+            <li><%= link_to 'Usuarios', pagehome_users_path %></li>
+            <li><%= link_to 'Sign_out', destroy_admin_session_path, :method => :delete  %></li>
+          <% else %>
+          <% end %>
+
         </ul>
       </div>
 
     </div>
   </div>
 </div>
- </header>
+</header>
 
  <div class="container-fluid">
 <%= yield %>

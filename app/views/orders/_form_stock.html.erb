@@ -32,6 +32,7 @@
 
   <h3>Inventario</h3>
     <form class="well form-inline">
+
       <%= f.fields_for :order_details do |builder|  %>
         <%= render 'order_detail_fields', {:f => builder} %>
       <% end %>

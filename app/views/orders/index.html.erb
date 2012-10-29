@@ -18,13 +18,30 @@
         <td>Entrada(Transferencia)</td>
       <% elsif order.mode == "2" %>
         <td>Entrada(Proveedor)</td>
+      <% elsif order.mode == "4" %>
+        <td>Cierre</td>
+      <% elsif order.mode == "5" %>
+        <td>Cierre(salida)</td>
       <% end %>
-      <td><%= order.destination %></td>
-      <td><%= order.dealer %></td>
-    <td><%= link_to 'Show', branch_mov_prod_path(@branch,order) %></td>
+
+      <% if order.destination.blank? %>
+        <td>""</td>
+      <% else %>
+        <td><%= Branch.find(order.destination).name %></td>
+      <% end %>
+
+      <% if order.dealer.blank? %>
+        <td>""</td>
+      <% else %>
+        <td><%= order.dealer %></td>
+      <% end %>
+
+      <td><%= link_to 'Show', branch_mov_prod_path(@branch,order) %></td>
 
   </tr>
 <% end %>
 </table>
+<%= will_paginate(@orders)  %>
+<%= link_to 'Regresar', branch_path(@branch) %>
 </div>
 

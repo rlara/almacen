@@ -8,30 +8,79 @@
 <p style="font-size:15px">
   <b>Ubicación:</b>
   <%= @branch.location %>
+  <%= link_to 'Editar', edit_branch_path(@branch), :class=>"btn" %>
+
+  <%= link_to 'Regresar', branches_path, :class=>"btn" %>
 </p>
 
+<div class="row-fluid">
 
-<div class="row">
-      <div class="span4" style="float:right">
-        <h2>Dar de alta un movimiento</h2>
-        <%=link_to "Orden", new_branch_order_path(@branch), :class=>"btn btn-primary" %>
-        <!--link para dar de altaa un abastecimiento de proveedor-->
-        <%= render :partial => "orders/orders_pending", :locals => {:orders_list => @orders_entry_pending}%>
-      </div>
+  <div class="span3">
+    <form class="form well">
+        <h3>Movimiento</h3>
+        <ul style="list-style:none">
+          <li><%=link_to "Enviar", new_branch_order_path(@branch), :class=>"btn btn-success", :style => "width:100px" %></li>
+          <br/>
+          <li><%=link_to "Entrada-Proveedor", provision_path(@branch), :class=>"btn btn-success" %></li>
+          <br/>
+<<<<<<< HEAD
+          <li><%=link_to "Cierre del dia", stock_path(@branch), :class=>"btn btn-primary" %></li>
+=======
+          <li><%=link_to "Cierre del dia", stock_path(@branch), :class=>"btn btn-primary", :style => "width:100px" %></li>
+>>>>>>> login
+          <br/>
+          <li><%=link_to "Lista de Ordenes", branch_orders_path(@branch), :class=>"btn btn-primary" %></li>
+          <br/>
+          <li><%=link_to "Reporte del dia", branch_report_day_path(@branch), :class=>"btn btn-primary", :style => "width:100px" %></li>
+          <br/>
+          <li><%=link_to "Reporte por periodo", branch_date_reports_path(@branch), :class=>"btn btn-primary" %></li>
 
-	<div class="span8">
-		<h2>Últimos Movimientos</h2>
-		<h3>Salidas</h3>
-		  <%= render :partial => "orders/orders_partial", :locals => {:list_ord => @orders}%>
-		<h3>Entradas</h3>
-		  <%= render :partial => "orders/orders_entry", :locals => {:entry_list => @orders_list_entry}%>
-	</div>
+        </ul>
+  </div>
+</form>
+
+    <div class="span6">
+
+        <h2>Últimos Movimientos</h2>
+        <h3>Salidas</h3>
+    <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Tipo movimiento</th>
+        <th>Sucursal</th>
+        <th>Destino</th>
+      </tr>
+    </thead>
+          <%= render :partial => "orders/orders_partial", :locals => {:list_ord => @orders}%>
+        </table>
+        <h3>Entradas</h3>
+          <table class="table table-condensed">
+          <thead>
+            <tr>
+              <th>Tipo Movimiento</th>
+              <th>Sucursal</th>
+              <th>Destino</th>
+            </tr>
+          </thead>
+
+		  <%= render :partial => "orders/orders_entry", :locals => {:entry_list => @order_list_entry}%>
+        </table>
+
+  </div>
 
 
+
+    <div class="span3" style="float:right">
+
+    <h2>Movimiento Pendientes</h2>
+    <% if @orders_entry_pending.empty? %>
+      <h4>No hay pendientes</h4>
+    <% else %>
+      <%= render :partial => "orders/orders_pending", :locals => {:orders_list => @orders_entry_pending}%>
+    <% end %>
+  </div>
 
 
 </div>
 
 
-<%= link_to 'Edit', edit_branch_path(@branch) %> |
-<%= link_to 'Back', branches_path %>

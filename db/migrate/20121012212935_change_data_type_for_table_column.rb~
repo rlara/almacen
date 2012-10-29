@@ -1,0 +1,8 @@
+class ChangeDataTypeForTableColumn < ActiveRecord::Migration
+  def up
+   change_column :stock_ms, :day, :integer
+  end
+
+  def down
+  end
+end

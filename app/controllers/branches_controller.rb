@@ -44,6 +44,7 @@ class BranchesController < ApplicationController
     end
   end
 
+
   # GET /branches/1/edit
   def edit
     @branch = Branch.find(params[:id])

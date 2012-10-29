@@ -1,0 +1,27 @@
+<div style="margin:0px 10px 50px">
+  <h2>Sucursal : <%= @branch.name  %></h2>
+  <%= link_to 'Regresar', branch_path(@branch), :class=>"btn" %>
+</div>
+
+<%= form_for @search, :url=> date_reports_path(@branch), :html => {:method => :get} do |f|  %>
+  <%= f.multiparameter_field :name_value_between, {:name => "2012-10-01"},{:name => "2012-10-01"}  %>
+
+<% end %>
+
+<div class="span8">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+<% @orders.each do |orden| %>
+      <tr>
+        <td><%= orden.mode %></td>
+        <td><%= orden.destination %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

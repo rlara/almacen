@@ -1,4 +1,4 @@
-<%= form_for([@branch, @order],:url => { :action => "create_prov" },:html=>{:class=>"well form-inline"}) do |f| %>
+<%= form_for([@branch, @order],:url => { :action => "create_stock" },:html=>{:class=>"well form-inline"}) do |f| %>
   <% if @order.errors.any? %>
       <h2><%= pluralize(@order.errors.count, "error") %> prohibited this transfer from being saved:</h2>
 
@@ -11,16 +11,11 @@
 
 
   <fieldset>
-      <%= f.hidden_field :mode, :value => '2'  %>
-      <%= f.hidden_field :status, :value => 'pending'  %>
+      <%= f.hidden_field :mode, :value => '4'  %>
+      <%= f.hidden_field :status, :value => 'complete'  %>
+      <%= f.hidden_field :destination, :value => params[:branch_id]  %>
 
   <div class="control-group">
-  <%= f.label 'Proveedor', :class=>"control-label" %>
-  <%= f.collection_select(:destination, Branch.where(:provider => true), :id, :name) %>
-
-  <%= f.label 'Repartidor', :class=>"control-label" %>
-      <%= f.select(:dealer, Order::DEALER.collect {|cat| [cat,cat] },{:include_blank=>true}) %>
-
     <%= f.label 'Fecha', :class=>"control-label" %>
      <%= f.text_field :date %>
    </div>
@@ -35,8 +30,12 @@
 
 
 
-  <h3>Agregar Productos</h3>
-      <form class="well form-inline">
+  <h3>Inventario</h3>
+    <form class="well form-inline">
+<<<<<<< HEAD
+=======
+
+>>>>>>> login
       <%= f.fields_for :order_details do |builder|  %>
         <%= render 'order_detail_fields', {:f => builder} %>
       <% end %>

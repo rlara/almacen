@@ -9,8 +9,10 @@ gem 'pg'
 
 #gem 'rails3-jquery-autocomplete'
 gem 'rails3-jquery-autocomplete', :git => "https://github.com/acolin/rails3-jquery-autocomplete.git"
-
-
+gem 'will_paginate'
+gem 'devise', "~> 2.1.2"
+gem 'cancan'
+gem 'meta_search'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
