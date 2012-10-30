@@ -12,6 +12,10 @@
   <div><%= f.label :password_confirmation %><br />
   <%= f.password_field :password_confirmation %></div>
 
+  <div><%= f.label 'Sucursal' %><br />
+    <%= f.collection_select(:branch_id, Branch.all, :id, :name, :prompt => true) %></div>
+
+
   <div><%= f.submit "Sign up" %></div>
 <% end %>
 

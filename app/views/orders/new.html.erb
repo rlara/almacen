@@ -8,7 +8,14 @@
           <br/>
           <li><%=link_to "Cierre del dia", stock_path(@branch), :class=>"btn btn-primary" %></li>
           <br/>
-          <li><%= link_to 'Agregar Producto',  new_product_path, :class=>"btn btn-success", :target=>"_blank"  %></li>
+          <% if user_signed_in? %>
+            <% if current_user.admin? %>
+              <li><%= link_to 'Agregar Producto',  new_product_path, :class=>"btn btn-success", :target=>"_blank"  %></li>
+            <% else %>
+            <% end %>
+          <% else %>
+            <li><%= link_to 'Agregar Producto',  new_product_path, :class=>"btn btn-success", :target=>"_blank"  %></li>
+          <% end %>
         </ul>
   </form>
 </div>

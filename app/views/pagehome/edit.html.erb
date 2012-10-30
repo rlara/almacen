@@ -1,0 +1,13 @@
+<div class="span10">
+  <h1>Editar usuario</h1>
+
+  <%= form_for @user, :url=>{:action => "block", :controller => "pagehome"} do |f| %>
+  <p>Bloquear usuario
+    <%= f.check_box :status%></p>
+  <p>Admin?
+    <%= f.check_box :admin%>
+  </p>
+  <%= f.submit 'Update', :class => "btn btn-primary"  %>
+  <%= link_to 'Back', pagehome_users_path, :class => "btn btn-info"  %>
+<% end %>
+</div>

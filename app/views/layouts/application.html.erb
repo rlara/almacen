@@ -11,16 +11,24 @@
 <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <%= link_to 'Almacen TacosMode', root_path, :class=>"brand"  %>
+      <%= link_to 'Almacen TacosMode', nil , :class=>"brand"  %>
       <div class="nav-collapse">
         <ul class="nav">
-          <li class="active">
-            <%= link_to 'Home', branches_path  %>
-          </li>
-          <li >
-            <%= link_to 'Productos', products_path %>
-          <li>
-          </li>
+          <% if user_signed_in? %>
+            <% if current_user.admin? %>
+              <li class="active">
+                <%= link_to 'Home', branches_path%>
+              </li>
+            <% else %>
+            <% end %>
+          <% elsif admin_signed_in? %>
+            <li class="active">
+              <%= link_to 'Home', branches_path%>
+            </li>
+          <% end %>
+              <li >
+                <%= link_to 'Productos', products_path %>
+              </li>
         </ul>
         <ul class="nav pull-right">
           <% if user_signed_in? %>
