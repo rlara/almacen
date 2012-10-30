@@ -6,6 +6,10 @@ Almacen::Application.routes.draw do
 
   get "pagehome/users"
 
+  get "pagehome/users/:id/edit" => 'pagehome#edit', :as => 'edit'
+
+  put "pagehome/users/:id" => 'pagehome#block'
+
   devise_for :users, :controllers => {:registrations => "users/registrations", :sessions => "users/sessions"}
 
   resources :moves
