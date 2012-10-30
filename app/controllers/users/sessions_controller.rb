@@ -17,6 +17,7 @@ def after_sign_in_path_for(resource)
       branch_path(resource.branch_id)
     else
       super
+      branches_path
     end
   end
 end
