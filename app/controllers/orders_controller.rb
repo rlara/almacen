@@ -12,7 +12,7 @@ autocomplete :products_search, {:product => [:name, :sku]}
   # GET /orders
   # GET /orders.json
   def index
-    @orders = @branch.orders.paginate(:page=>params[:page], :per_page=>20)
+    @orders = @branch.orders.limit(100).paginate(:page=>params[:page], :per_page=>20)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @orders }
