@@ -1,0 +1,38 @@
+<div style="padding:20px 0 30px">
+<h1>Inventario Mínimo</h1>
+</div>
+<% if @minimums.empty?  %>
+  <h3> </h3>
+<% else %>
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th>Sucursal</th>
+    <th>Dia</th>
+    <th>Producto</th>
+    <th>Cantidad</th>
+    <th></th>
+    <th></th>
+  </tr>
+</thead>
+<tbody>
+<% @minimums.each do |min| %>
+  <tr>
+    <td><%= min.branch_id %></td>
+    <td><%= min.day %></td>
+    <td><%= min.product_id %></td>
+    <td><%= min.quantity %></td>
+    <td><%= link_to 'Edit', edit_stockm_path(min)%></td>
+    <td><%= link_to 'Destroy', stockdelete_path(min), confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+</tbody>
+<% end %>
+</table>
+
+<br />
+<% end %>
+  <%= link_to 'Nuevo Registro', new_stockm_path, :class=>"btn btn-primary" %>|
+  <%= link_to 'Regresar', branches_path, :class=>"btn"  %>
+
+
+
