@@ -2,7 +2,11 @@
   <h1 align="center">Tacosmode</h1>
   <p align="center">Almacen</p>
   <div align ="center">
+  <% if admin_signed_in? %>
+    <%= link_to 'Entrar', branches_path, :class => "btn btn-primary btn-large" %>
+  <% else %>
     <%= link_to 'Entrar', new_user_session_path, :class => "btn btn-primary btn-large" %>
+  <% end %>
   </div>
 
 </div>
