@@ -9,7 +9,7 @@
 require 'csv'
 
 puts "Importing products..."
-CSV.foreach(Rails.root.join("products.csv"), headers: true) do |row|
+CSV.foreach(Rails.root.join("products_list.csv"), headers: true) do |row|
     Product.create! do |product|
           product.id = row[0]
           product.name = row[1]
