@@ -17,5 +17,4 @@ class PagehomeController < ApplicationController
       redirect_to pagehome_users_path
     end
   end
-
 end

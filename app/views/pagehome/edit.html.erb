@@ -7,6 +7,15 @@
   <p>Admin?
     <%= f.check_box :admin%>
   </p>
+
+  <% if @user.branch_id.blank? %>
+    <p><%= f.label 'Sucursal' %>
+    <%= f.collection_select(:branch_id, Branch.all, :id, :name, :prompt => true) %></p>
+  <% else %>
+    <p><%= f.label 'Sucursal' %>
+    <%= f.collection_select(:branch_id, Branch.all, :id, :name, :selected => @user.branch_id) %></p>
+  <% end %>
+
   <%= f.submit 'Update', :class => "btn btn-primary"  %>
   <%= link_to 'Back', pagehome_users_path, :class => "btn btn-info"  %>
 <% end %>
