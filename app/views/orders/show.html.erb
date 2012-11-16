@@ -73,6 +73,10 @@
 
 <%= f.hidden_field :atach,:value => @order.atach%>
 <%= f.hidden_field :action, :value => action_name  %>
+  <% if user_signed_in? %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+  <% end %>
+
 <% if @order.mode == '1' %>
   <%= f.hidden_field :mode, :value => '3' %>
 
