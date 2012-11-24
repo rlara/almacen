@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
 autocomplete :products_search, {:product => [:name, :sku]}
 
  before_filter :get_branch
-
+#Obtener la sucursal
   def get_branch
     @branch = Branch.find(params[:branch_id])
   end
@@ -19,6 +19,7 @@ autocomplete :products_search, {:product => [:name, :sku]}
     end
   end
 
+# Ver Reporte del dia una vez que ya se realizo el cierre del dia
   def reports
     @orders_r = @branch.orders.where(:date=> Date.today).order("created_at desc")
     @order_close = @branch.orders.find_by_mode_and_date("4",Date.today)
@@ -31,7 +32,7 @@ autocomplete :products_search, {:product => [:name, :sku]}
 
 
 
-
+# Ver el Reporte por Fechas, de 1 o varios productos y por tipo de orden
   def date_reports
     unless params[:orders_r].nil?
       dstart = params[:orders_r][:date]
@@ -46,10 +47,13 @@ autocomplete :products_search, {:product => [:name, :sku]}
   end
 
 
-
+# Ver el detalle de una orden con el precio total de los productos
   def new_mov
     @order = Order.find(params[:id])
-    @dif_ord = Order.find(@order.atach)
+    #Cuando se crea una orden de tipo ajuste (entrada,salida) el campo atach queda vacio
+    if @order.isclose == false
+      @dif_ord = Order.find(@order.atach)
+    end
     @total = 0
     @order.order_details.each do |prod|
       suma = prod.price * prod.quantity
@@ -110,7 +114,7 @@ autocomplete :products_search, {:product => [:name, :sku]}
     end
   end
 
-  # Entrada de proveedor /orders/provision
+  #  Crear cierre /orders/provision
   def stock
     @order = Order.new
     @moves = Move.where(:branch_id => params[:branch_id])
@@ -176,6 +180,7 @@ autocomplete :products_search, {:product => [:name, :sku]}
     end
   end
 
+  #Crear la orden de entrada de proveedor
   def create_prov
     @order = @branch.orders.create(params[:order])
     respond_to do |format|

@@ -3,10 +3,13 @@
     <b>Origen:</b>
     <%= @order.branch.name %>
   </p>
+  <% if @order.isclose == false %>
   <p>
     <b>Destino:</b>
     <%= Branch.find_by_id(@order.destination).name %>
   </p>
+  <% end %>
+
   <p>
     <b>Hora creación:</b>
     <%= @order.created_at.strftime("%I:%M %P") %>
@@ -21,8 +24,11 @@
       <td><%= order_detail.product.name  %></td>
       <% if @order.mode == "3" %>
         <% @dif = OrderDetail.find_by_order_id_and_product_id(@dif_ord.id,order_detail.product_id) %>
-        <td><b>Diferencia:</b><%= order_detail.quantity - @dif.quantity %></td>
+        <% if @dif.nil? %>
 
+        <% else %>
+          <td><b>Diferencia:</b><%= order_detail.quantity - @dif.quantity %></td>
+        <% end %>
         <td><b> Nota: <%= order_detail.note %> </b></td>
       <% end %>
     </p>

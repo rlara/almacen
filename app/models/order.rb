@@ -13,7 +13,9 @@ class Order < ActiveRecord::Base
 
 after_create :update_stock
 before_save :create_atach
+
   def create_atach
+#validar el campo atach
     if self.atach == nil
       self.atach = self.id
     end
@@ -21,7 +23,7 @@ before_save :create_atach
     if self.isclose == nil
       self.isclose = false
     end
-
+#Cambiar el precio de el producto si se modifico en la orden de entrada de proveedor
     if self.mode == "2"
       self.order_details.each do |od|
         precio = Product.find_by_id(od.product_id)

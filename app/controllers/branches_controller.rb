@@ -18,7 +18,7 @@ class BranchesController < ApplicationController
       @ord = session[:change_status]
       session[:change_status] = nil
       if Order.where(:atach => @ord.atach).count == 2
-        @ord.update_attributes(:status => 'completado')
+        @ord.update_attributes(:status => 'complete')
       end
     end
     #Ver todas las salidas de la sucursal

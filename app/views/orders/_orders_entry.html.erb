@@ -2,7 +2,17 @@
 
 <tbody>
   <tr>
-    <td><%= ord.mode %></td>
+    <% if ord.mode == "1" %>
+        <td>Salida</td>
+    <% elsif ord.mode == "3" %>
+        <td>Entrada(Transferencia)</td>
+    <% elsif ord.mode == "2" %>
+        <td>Entrada(Proveedor)</td>
+    <% elsif ord.mode == "4" %>
+        <td>Cierre</td>
+    <% elsif ord.mode == "5" %>
+        <td>Cierre(salida)</td>
+    <% end %>
     <td><%= ord.branch.name %></td>
     <td><%= link_to 'show', branch_mov_prod_path(@branch,ord), :class=>"btn btn-primary" %></td>
     <td></td>

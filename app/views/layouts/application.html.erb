@@ -11,7 +11,7 @@
 <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <%= link_to 'Almacen TacosMode', nil , :class=>"brand"  %>
+      <%= link_to 'Almacen TacosMode', nil , :class=>"brand", :style => 'color:white;'  %>
       <div class="nav-collapse">
         <ul class="nav">
           <% if user_signed_in? %>
@@ -34,15 +34,17 @@
         <ul class="nav pull-right">
           <% if user_signed_in? %>
             <li><a><%= current_user.email %></a></li>
-            <li><%= link_to "Salir", destroy_user_session_path, :method => :delete  %></li>
+            <li><%= link_to "Salir User", destroy_user_session_path, :method => :delete  %></li>
           <% else %>
-            <li><%= link_to 'Iniciar sesion', new_user_session_path  %></li>
+            <% unless admin_signed_in? %>
+              <li><%= link_to 'Iniciar sesion', new_user_session_path  %></li>
+            <% end %>
           <% end %>
 
           <% if admin_signed_in? %>
             <li><a><%= current_admin.email  %></a></li>
             <li><%= link_to 'Usuarios', pagehome_users_path %></li>
-            <li><%= link_to 'Sign_out', destroy_admin_session_path, :method => :delete  %></li>
+            <li><%= link_to 'Salir administrador', destroy_admin_session_path, :method => :delete  %></li>
           <% else %>
           <% end %>
 

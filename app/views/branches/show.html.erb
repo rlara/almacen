@@ -47,8 +47,10 @@
 
     <div class="span6">
 
-        <h2>Últimos Movimientos</h2>
-        <h3>Salidas</h3>
+      <div class="page-header">
+        <h1>Últimos Movimientos</h1>
+      </div>
+        <h3 style = "color:gray">Salidas</h3>
     <table class="table table-condensed">
     <thead>
       <tr>
@@ -59,13 +61,14 @@
     </thead>
           <%= render :partial => "orders/orders_partial", :locals => {:list_ord => @orders}%>
         </table>
-        <h3>Entradas</h3>
+
+        <h3 style="color:gray">Entradas</h3>
           <table class="table table-condensed">
           <thead>
             <tr>
               <th>Tipo Movimiento</th>
               <th>Sucursal</th>
-              <th>Destino</th>
+              <th>Detalle orden</th>
             </tr>
           </thead>
 

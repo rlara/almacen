@@ -24,7 +24,7 @@
         <td><b><%= product.product.name  %></b>
         </td>
         <td><%= product.quantity %></td>
-        <% next_day = StockM.find_by_product_id_and_branch_id_and_day(product.product_id, @order_close.branch_id, @order_close.date.cwday+1)%>
+        <% next_day = StockM.find_by_product_id_and_branch_id_and_day(product.product_id, @order_close.branch_id, @order_close.date.cwday)%>
         <td><%= dif = next_day.quantity - product.quantity%></td>
         </tr>
       <% end %>

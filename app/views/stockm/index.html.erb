@@ -18,9 +18,9 @@
 <tbody>
 <% @minimums.each do |min| %>
   <tr>
-    <td><%= min.branch_id %></td>
+    <td><%= Branch.find(min.branch_id).name %></td>
     <td><%= min.day %></td>
-    <td><%= min.product_id %></td>
+    <td><%= Product.find(min.product_id).name %></td>
     <td><%= min.quantity %></td>
     <td><%= link_to 'Edit', edit_stockm_path(min)%></td>
     <td><%= link_to 'Destroy', stockdelete_path(min), confirm: 'Are you sure?', method: :delete %></td>

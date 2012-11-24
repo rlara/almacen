@@ -73,10 +73,11 @@
 
 <%= f.hidden_field :atach,:value => @order.atach%>
 <%= f.hidden_field :action, :value => action_name  %>
+<%= f.hidden_field :status, :value => 'complete'%>
   <% if user_signed_in? %>
     <%= f.hidden_field :user_id, :value => current_user.id %>
   <% end %>
-
+  <!-- Tipo de orden donde se recibe una orden --!>
 <% if @order.mode == '1' %>
   <%= f.hidden_field :mode, :value => '3' %>
 
@@ -92,7 +93,7 @@
 
   <div class="control-group">
   <%= f.label 'Destino Entrada', :class=>"control-label" %>
-  <%= f.collection_select(:destination, Branch.all, :id,:name,:selected => @order.id) %>
+  <%= f.collection_select(:destination, Branch.all, :id,:name,:selected => @order.branch_id) %>
 
   <%= f.select(:dealer, Order::DEALER.collect {|cat| [cat,cat] },{:prompt=>'Selecciona el Repartidor', :selected => @order.dealer })%>
 
@@ -121,7 +122,7 @@
     </div>
 
     <div class="form-actions">
-    <%= f.submit 'Guardar', :class=>"btn btn-primary"%>
+      <%= f.submit 'Guardar', :class=>"btn btn-primary", :confirm => 'Desea guardar la orden?'%>
     <%= link_to 'Regresar', branch_path(@branch), :class=>"btn" %>
     </div>
 

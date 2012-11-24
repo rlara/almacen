@@ -26,10 +26,14 @@
 
 <script type="text/javascript">
     $('input.enp:last').live('keyup',function(e){
-      if(e.keyCode == 13) {
-        $('#enterp').trigger('click');
-      };
+        e.preventDefault();
+        if(e.keyCode == 13) {
+          $('#enterp').trigger('click');
+        };
     });
 
 </script>
+
+
+
 

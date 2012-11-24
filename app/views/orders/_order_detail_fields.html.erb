@@ -1,12 +1,18 @@
 <div class="fields" >
   <%= f.label "Cantidad", :class=>"control-label" %>
-    <% if action_name == "show" %>
+  <!-- Orden de tipo entrada Transferencia --!>
+  <% if action_name == "show" %>
       <%= f.text_field :quantity, :class=>"input-small", :placeholder=>'Cantidad' %>
 
       <% if f.object.product_id  %>
-      <%= Product.find_by_id(f.object.product_id).name %>
-    <% end  %>
+        <%= Product.find_by_id(f.object.product_id).name %>
+      <% else %>
+        <%= text_field_tag :product_name, nil, {:autocomplete => autocomplete_products_search_branch_orders_path, :class => "enp" }%>
 
+
+      <% end  %>
+
+<!-- Orden de tipo Cierre Muestra la existencia de cada producto --!>
   <% elsif action_name == "stock" %>
     <%= f.text_field :quantity, :class=>"input-small", :placeholder=>'Cantidad' %>
 
@@ -20,15 +26,16 @@
     <%= f.text_field :quantity, :class=>"input-small", :placeholder=>'Cantidad', :value=>1 %>
     <%= text_field_tag :product_name, nil, {:autocomplete => autocomplete_products_search_branch_orders_path, :class => "enp" }%>
 
+<!-- Orden de tipo entrada de proveedor puede modificar el campo precio de un producto--!>
     <% if action_name == "provision" %>
-    <%= f.text_field :price, :class=>"input-small", :placeholder=>'$' %>
+      <%= f.text_field :price, :class=>"input-small", :placeholder=>'$' %>
     <% end %>
   <% end %>
 
-  <%= f.hidden_field :product_id, :id => 'product_id'  %>
+    <%= f.hidden_field :product_id, :id => 'product_id'  %>
 
-   <%= f.text_area :note, :rows=>"1", :placeholder=>'Agrega una Nota' %>
-   <%= link_to_remove_fields "_", f %>
+    <%= f.text_area :note, :rows=>"1", :placeholder=>'Agrega una Nota' %>
+    <%= link_to_remove_fields "_", f %>
 </div>
 
 

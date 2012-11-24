@@ -50,7 +50,7 @@ class StockmController < ApplicationController
     @minimum = StockM.find(params[:id])
 
     respond_to do |format|
-      if @minimum.update_attributes(params[:minimum])
+      if @minimum.update_attributes(params[:stock_m])
         format.html { redirect_to stock_ms_path, notice: 'Move was successfully updated.' }
         format.json { head :no_content }
       else
