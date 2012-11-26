@@ -6,7 +6,7 @@ class Product < ActiveRecord::Base
 
   scope :by_name_and_sku, lambda { |q| where("name LIKE ? OR sku LIKE ?", "%#{q}%", "%#{q}%") }
 
-  CATEGORY = ['Refrescos', 'Comida', 'Agua', 'Carnes', 'Jarabes', 'Lacteos y Carnes Frias', 'Guisos']
+  CATEGORY = ['REFRESCOS', 'GUISOS', 'SALSAS', 'VERDURAS', 'ABARROTES', 'POSTRES', 'CERVEZA']
 
   class << self
     CATEGORY.each do |category|

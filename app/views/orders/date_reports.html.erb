@@ -4,34 +4,36 @@
 </div>
 
 
-<%= form_for :orders_r, :url => branch_date_reports_path(@branch), :html =>{:method=>:get} do |f| %>
+<%= form_tag branch_date_reports_path(@branch), :method=>:get do %>
     Inicio
-    <%= f.text_field :date%>
+    <%= text_field_tag :date %>
     <script type="text/javascript">
       $(document).ready(function () {
-        $('#orders_r_date').datepicker();
-        $('#orders_r_date').datepicker('option', {dateFormat: 'yy-mm-dd'});
-        $("#startDate").datepicker({dateFormat: 'yy-mm-dd'});
-
-      });
+        $('#date').datepicker();
+        $('#date').datepicker('option', {dateFormat: 'yy-mm-dd'});
+        });
     </script>
 
     Fin
-    <%= f.text_field :datend %>
+    <%= text_field_tag :datend %>
 
     Producto
-    <%= f.collection_select :product_id, Product.all, :id, :name, :prompt => true %>
+    <%= text_field_tag :product_name, nil, {:autocomplete => autocomplete_products_search_branch_orders_path, :class => "enp" }%>
+
+    <%= hidden_field_tag 'product_id','', :id => 'product_id'  %>
 
     <script type="text/javascript">
     $(document).ready(function () {
-        $('#orders_r_datend').datepicker();
-        $('#orders_r_datend').datepicker('option', {dateFormat: 'yy-mm-dd'});
-        $("#startDate").datepicker({dateFormat: 'yy-mm-dd'});
+        $('#datend').datepicker();
+        $('#datend').datepicker('option', {dateFormat: 'yy-mm-dd'});
+        });
+    </script>
 
-    });
-  </script>
+    <%= select_tag :type, options_for_select([["Salida(Transferencia)","1"],["Entrada(Proveedor)","2"],["Entrada(Transferencia)","3"],["Cierre","4"],["Cierre(Entrada)","5"],["Cierre(Salida)","6"]]), :prompt => "Tipo de movimeinto" %>
 
-    <%= f.submit 'Ver' %>
+    <%= select_tag :category, options_for_select(["SALSAS","VERDURAS","ABARROTES","GUISOS","REFRESCOS","CERVEZA"]), :prompt=> "Selecciona la Categoria"%>
+
+    <%= submit_tag 'Ver' %>
   <% end %>
 
 <div class="span8">
@@ -39,6 +41,7 @@
     <thead>
       <tr>
         <th>Producto</th>
+        <th>Categoria</th>
         <th>Cantidad</th>
         <th>TipoOrden</th>
       </tr>
@@ -46,20 +49,35 @@
     <tbody>
     <% unless @orders.nil? %>
       <% @orders.each do |orden| %>
+<!--Buscar un producto en especifico--!>
         <% unless @prod.blank? %>
           <% var = OrderDetail.find_by_product_id_and_order_id(@prod,orden.id) %>
           <tr>
             <td><%= var.product.name  %></td>
+            <td><%= var.product.category  %></td>
             <td><%= var.quantity  %></td>
             <td><%= orden.mode  %></td>
           </tr>
         <% else %>
           <% orden.order_details.each do |product| %>
-            <tr>
-              <td><%= product.product.name %></td>
-              <td><%= product.quantity %>
-              <td><%= orden.mode  %></td>
-            </tr>
+            <% unless @category.blank? %>
+<!--Validar que el usuario haya seleccionado una categoria --!>
+              <% if product.product.category == @category %>
+                <tr>
+                  <td><%= product.product.name %></td>
+                  <td><%= product.product.category %></td>
+                  <td><%= product.quantity %>
+                  <td><%= orden.mode  %></td>
+                </tr>
+              <% end %>
+            <% else %>
+              <tr>
+                <td><%= product.product.name %></td>
+                <td><%= product.product.category %></td>
+                <td><%= product.quantity %>
+                <td><%= orden.mode  %></td>
+              </tr>
+            <% end %>
           <% end %>
         <% end %>
       <% end %>
