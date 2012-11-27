@@ -10,12 +10,12 @@
   <%= @branch.location %>
   <% if user_signed_in? %>
     <% if current_user.admin? %>
-      <%= link_to 'Editar', edit_branch_path(@branch), :class=>"btn" %>
+      <%= link_to 'Editar', edit_branch_path(@branch), :class=>"btn btn-primary" %>
       <%= link_to 'Regresar', branches_path, :class=>"btn" %>
     <% else %>
     <% end %>
   <% elsif admin_signed_in? %>
-      <%= link_to 'Editar', edit_branch_path(@branch), :class=>"btn" %>
+      <%= link_to 'Editar', edit_branch_path(@branch), :class=>"btn btn-primary" %>
       <%= link_to 'Regresar', branches_path, :class=>"btn" %>
 
   <% end %>

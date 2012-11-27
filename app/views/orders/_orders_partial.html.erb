@@ -5,7 +5,9 @@
     <td><%= ord.branch.name  %></td>
     <td><%= Branch.find_by_id(ord.destination).name %></td>
     <td><%= link_to 'Show', branch_mov_prod_path(@branch,ord), :class=>"btn btn-primary"%></td>
-
+    <% if ord.status == 'pending' %>
+    <td><%= link_to 'Delete', branch_order_path(@branch,ord), confirm: 'Estas seguro?', method: :delete, :class=>"btn btn-danger"%></td>
+    <% end %>
   </tr>
 </tbody>
 <% end  %>

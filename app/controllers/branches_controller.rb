@@ -22,10 +22,11 @@ class BranchesController < ApplicationController
       end
     end
     #Ver todas las salidas de la sucursal
-    @orders = Order.where(:branch_id => (params[:id]), :mode => '1')
+    @orders = Order.where(:branch_id => (params[:id]), :mode => '1').order("created_at DESC").limit(10)
     #Ver todas las entradas de la sucursal
-    @order_list_entry = Order.where(:branch_id=>(params[:id]), :mode => ['3','2'])
-    @orders_entry_pending = Order.where(:destination =>(params[:id]), :status => 'pending')
+    @order_list_entry = Order.where(:branch_id=>(params[:id]), :mode => ['3','2']).order("created_at DESC").limit(10)
+    #Ver lista de ordenes pendiente
+    @orders_entry_pending = Order.where(:destination =>(params[:id]), :status => 'pending').order("created_at DESC").limit(10)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @branch }

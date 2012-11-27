@@ -4,28 +4,30 @@
 </div>
 
 
-<%= form_tag branch_date_reports_path(@branch), :method=>:get do %>
+<%= form_tag branch_date_reports_path(@branch), :method=>:get, :id =>'form', :class=>"form-inline" do %>
     Inicio
-    <%= text_field_tag :date %>
+    <%= text_field_tag :date, @dstart %>
     <script type="text/javascript">
       $(document).ready(function () {
         $('#date').datepicker();
         $('#date').datepicker('option', {dateFormat: 'yy-mm-dd'});
+        $('#date').val("<%= @dstart%>");
         });
     </script>
 
     Fin
-    <%= text_field_tag :datend %>
+    <%= text_field_tag :datend, @dend %>
 
     Producto
-    <%= text_field_tag :product_name, nil, {:autocomplete => autocomplete_products_search_branch_orders_path, :class => "enp" }%>
+    <%= text_field_tag :product_name, @prodname, {:autocomplete => autocomplete_products_search_branch_orders_path, :class => "enp" }%>
 
-    <%= hidden_field_tag 'product_id','', :id => 'product_id'  %>
+    <%= hidden_field_tag 'product_id',@prod, :id => 'product_id'  %>
 
     <script type="text/javascript">
     $(document).ready(function () {
         $('#datend').datepicker();
         $('#datend').datepicker('option', {dateFormat: 'yy-mm-dd'});
+        $('#datend').val("<%= @dend%>");
         });
     </script>
 
@@ -33,10 +35,33 @@
 
     <%= select_tag :category, options_for_select(["SALSAS","VERDURAS","ABARROTES","GUISOS","REFRESCOS","CERVEZA"]), :prompt=> "Selecciona la Categoria"%>
 
-    <%= submit_tag 'Ver' %>
+    <%= submit_tag 'Buscar', :class =>"btn btn-primary" %>
   <% end %>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#form').submit(function() {
+          if($("#date").val().length < 1){
+          alert("La fecha inicial es obligatoria");
+          return false;
+          }
+          if($("#datend").val().length < 1){
+          alert("La fecha final es obligatoria");
+          return false;
+          }
+
+        });
+      });
+</script>
+
+
+
 <div class="span8">
+  <% unless @orders.empty? %>
+    <p>Fecha inicio: <%= @dstart %></p>
+    <p>Fecha fin: <%= @dend %></p>
+  <% end %>
+
   <table class="table table-striped">
     <thead>
       <tr>

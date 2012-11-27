@@ -19,11 +19,25 @@
 <% @minimums.each do |min| %>
   <tr>
     <td><%= Branch.find(min.branch_id).name %></td>
-    <td><%= min.day %></td>
+    <% if min.day == 1 %>
+      <td>Lunes</td>
+    <% elsif min.day == 2 %>
+      <td>Martes</td>
+    <% elsif min.day == 3 %>
+      <td>Miercoles</td>
+    <% elsif min.day == 4 %>
+      <td>Jueves</td>
+    <% elsif min.day == 5 %>
+      <td>Viernes</td>
+    <% elsif min.day == 6 %>
+      <td>Sabado</td>
+    <% elsif min.day == 7 %>
+      <td>Domingo</td>
+    <% end %>
     <td><%= Product.find(min.product_id).name %></td>
     <td><%= min.quantity %></td>
-    <td><%= link_to 'Edit', edit_stockm_path(min)%></td>
-    <td><%= link_to 'Destroy', stockdelete_path(min), confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Edit', edit_stockm_path(min), :class=>"btn btn-primary"%></td>
+    <td><%= link_to 'Destroy', stockdelete_path(min), confirm: 'Are you sure?', method: :delete, :class=>"btn btn-danger" %></td>
   </tr>
 </tbody>
 <% end %>

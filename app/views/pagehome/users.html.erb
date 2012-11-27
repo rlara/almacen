@@ -13,10 +13,10 @@
     <td><%= user.email %></td>
     <td><%= user.status %></td>
     <td><%= user.admin  %></td>
-    <td><%= link_to "edit", edit_path(user) %></td>
+    <td><%= link_to "edit", edit_path(user), :class=>"btn btn-primary" %></td>
   </tr>
 <% end %>
 </table>
-<%= link_to 'Crear', new_user_registration_path, :class => "btn btn-primary" %>
+<%= link_to 'Nuevo', new_user_registration_path, :class => "btn btn-large btn-primary" %>
 </div>
 

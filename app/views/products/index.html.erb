@@ -30,14 +30,14 @@
     <td><%= product.units %></td>
     <td><%= product.price %></td>
     <% if admin_signed_in? %>
-      <td><%= link_to 'Show', product %></td>
-      <td><%= link_to 'Edit', edit_product_path(product) %></td>
-      <td><%= link_to 'Destroy', product, confirm: 'Are you sure?', method: :delete %></td>
+      <td><%= link_to 'Show', product, :class=>"btn btn-primary" %></td>
+      <td><%= link_to 'Edit', edit_product_path(product), :class=>"btn btn-primary" %></td>
+      <td><%#= link_to 'Destroy', product, confirm: 'Are you sure?', method: :delete %></td>
     <% elsif user_signed_in? %>
       <% if current_user.admin? %>
-        <td><%= link_to 'Show', product %></td>
-        <td><%= link_to 'Edit', edit_product_path(product) %></td>
-        <td><%= link_to 'Destroy', product, confirm: 'Are you sure?', method: :delete %></td>
+        <td><%= link_to 'Show', product, :class=>"btn btn-primary" %></td>
+        <td><%= link_to 'Edit', edit_product_path(product), :class=> "btn btn-primary" %></td>
+        <td><%#= link_to 'Destroy', product, confirm: 'Are you sure?', method: :delete %></td>
       <% else %>
       <% end %>
     <% end %>
@@ -50,12 +50,13 @@
 <% end %>
 <% if user_signed_in? %>
   <% if current_user.admin? %>
-    <%= link_to 'Nuevo Producto', new_product_path, :class=>"btn btn-primary" %>|
-    <%= link_to 'Regresar', branches_path, :class=>"btn"  %>
+    <%= link_to 'Nuevo Producto', new_product_path, :class=>"btn btn-large btn-primary" %>|
+    <%= link_to 'Regresar', branches_path, :class=>"btn btn-large"  %>
   <% else %>
+    <%= link_to 'Regresar', branch_path(current_user.branch_id), :class=>"btn btn-large"  %>
   <% end %>
 <% elsif admin_signed_in? %>
-  <%= link_to 'Nuevo Producto', new_product_path, :class=>"btn btn-primary" %>|
-  <%= link_to 'Regresar', branches_path, :class=>"btn"  %>
+  <%= link_to 'Nuevo Producto', new_product_path, :class=>"btn btn-large btn-primary" %>|
+  <%= link_to 'Regresar', branches_path, :class=>"btn btn-large"  %>
 
 <% end %>

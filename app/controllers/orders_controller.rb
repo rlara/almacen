@@ -34,18 +34,23 @@ autocomplete :products_search, {:product => [:name, :sku]}
 
 # Ver el Reporte por Fechas, de 1 o varios productos y por tipo de orden
   def date_reports
-      @orders_r = {}
-      @orders_r = params[:orders_r]
+
+      #@orders_r = {}
+      #@orders_r = params[:orders_r]
       dstart = params[:date]
       dend = params[:datend]
       type = params[:type]
       @category = params[:category]
       @prod = params[:product_id]
+      @prodname = @prod.blank? ? nil : Product.find(@prod).name
+
       if type.blank?
         @orders = @branch.orders.find(:all, :conditions => ['date >= ? AND date <= ?',dstart,dend])
       else
         @orders = @branch.orders.find(:all, :conditions => ['date >= ? AND date <= ? AND mode = ?',dstart,dend,type])
       end
+      @dstart = dstart
+      @dend = dend
     respond_to do |format|
       format.html
       format.json {render json: @orders_r}
@@ -181,7 +186,7 @@ autocomplete :products_search, {:product => [:name, :sku]}
     @order.destroy
 
     respond_to do |format|
-      format.html { redirect_to orders_url }
+      format.html { redirect_to branch_path(@branch) }
       format.json { head :no_content }
     end
   end

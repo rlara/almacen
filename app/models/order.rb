@@ -1,20 +1,21 @@
 class Order < ActiveRecord::Base
   belongs_to :branch
-  has_many :order_details, :dependent => :destroy
+  has_many :order_details
   has_many :moves
   attr_accessible :dealer, :destination, :atach, :user_id, :order_details_attributes, :mode, :product_id, :date, :status, :action, :branch_id, :isclose
   validates :mode, :destination, :presence => true
 
 
-
+  #Relaciones
   accepts_nested_attributes_for :order_details
   accepts_nested_attributes_for :moves
 
+  #Validaciones antes y despues de crearse la orden
+  after_create :update_stock
+  before_save :create_atach
+  before_destroy :delete_order
 
-after_create :update_stock
-before_save :create_atach
-
-  def create_atach
+def create_atach
 #validar el campo atach
     if self.atach == nil
       self.atach = self.id
@@ -41,6 +42,7 @@ before_save :create_atach
     end
   end
 
+###Modificar el inventario de un producto en una sucursal ya sea restando o sumando su cantidad o entodo caso creando el registro en su inventario si es que no existe
 
   def update_stock
     generas = []
@@ -77,6 +79,8 @@ before_save :create_atach
         end
       end
     end
+ ####
+    #Al crear el cierre si hay diferencias crear sus salidas y etradas respectivamente
     if self.mode == "4"
       unless generas.empty?
         a = Order.new
@@ -102,7 +106,7 @@ before_save :create_atach
     end
   end
 
-
+#Repartidores en una orden de entrada y salida de transferencia
   DEALER = ['Roberto','Sergio','Carlos']
 
   class << self
@@ -110,6 +114,25 @@ before_save :create_atach
       define_method "cat_#{dealer}" do
         dealer
       end
+    end
+  end
+
+
+  ###Delete order and edit stock
+  def delete_order
+    self.class
+    @registro_order = Order.find(self.id)
+    @registro_order.order_details.each do |prod|
+      stock = Move.find_by_product_id_and_branch_id(prod.product_id, self.branch_id)
+        case self.mode
+          when "1"
+            stock.update_attributes(:existence => stock.existence + prod.quantity)
+          when "2"
+            stock.update_attributes(:existence => stock.existence - prod.quantity)
+          when "3"
+            stock.update_attributes(:existence => stock.existence - prod.quantity)
+        end
+        prod.destroy
     end
   end
 

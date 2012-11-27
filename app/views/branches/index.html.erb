@@ -23,12 +23,13 @@
       <td><%= branch.location %></td>
       <% if branch.provider == true %>
         <td>si</td>
+        <td></td>
       <% else %>
         <td>no</td>
+        <td><%= link_to 'Show', branch, :class=>"btn btn-primary" %></td>
       <% end %>
-      <td><%= link_to 'Show', branch %></td>
-      <td><%= link_to 'Edit', edit_branch_path(branch) %></td>
-      <td><%= link_to 'Destroy', branch, confirm: 'Are you sure?', method: :delete %></td>
+      <td><%= link_to 'Edit', edit_branch_path(branch), :class=>"btn btn-primary" %></td>
+      <td><%= link_to 'Destroy', branch, confirm: 'Are you sure?', method: :delete, :class=>"btn btn-danger" %></td>
     </tr>
   </tbody>
   <% end %>
@@ -36,4 +37,4 @@
 <% end  %>
 <br />
 
-<%= link_to 'Nueva Sucursal', new_branch_path, :class => "btn btn-primary" %>
+<%= link_to 'Nueva Sucursal', new_branch_path, :class => "btn btn-large btn-primary" %>

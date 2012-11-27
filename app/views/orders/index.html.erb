@@ -36,12 +36,12 @@
         <td><%= order.dealer %></td>
       <% end %>
 
-      <td><%= link_to 'Show', branch_mov_prod_path(@branch,order) %></td>
+      <td><%= link_to 'Show', branch_mov_prod_path(@branch,order), :class=>"btn btn-primary" %></td>
 
   </tr>
 <% end %>
 </table>
 <%= will_paginate(@orders)  %>
-<%= link_to 'Regresar', branch_path(@branch) %>
+<%= link_to 'Regresar', branch_path(@branch), :class=>"btn" %>
 </div>
 

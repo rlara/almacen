@@ -37,5 +37,8 @@
     <%= f.text_area :note, :rows=>"1", :placeholder=>'Agrega una Nota' %>
     <%= link_to_remove_fields "_", f %>
 </div>
-
-
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("input.input-small:last").focus();
+  });
+</script>
