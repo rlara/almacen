@@ -42,7 +42,7 @@ class OrderDetail < ActiveRecord::Base
       if options[:ob_product_name] == "up"
         order_info << "products.name ASC"
       elsif options[:ob_product_name] == "down"
-        order_info << "products.name DESC"
+        order_info << "products.name ASC"
       end
     end
     

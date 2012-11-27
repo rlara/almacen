@@ -1,25 +1,41 @@
 <div class="fields" >
-
   <%= f.label "Cantidad", :class=>"control-label" %>
-  <%= f.text_field :quantity, :class=>"input-small", :placeholder=>'Cantidad', :value=>1 %>
+  <!-- Orden de tipo entrada Transferencia -->
+  <% if action_name == "show" %>
+      <%= f.text_field :quantity, :class=>"input-small", :placeholder=>'Cantidad' %>
 
-<<<<<<< HEAD
-  <%= text_field_tag :products_name, nil, :autocomplete_products_search_branch_orders_path%>
+      <% if f.object.product_id  %>
+        <%= Product.find_by_id(f.object.product_id).name %>
+      <% else %>
+        <%= text_field_tag :product_name, nil, {:autocomplete => autocomplete_products_search_branch_orders_path, :class => "enp" }%>
 
-  <!-- <div class="ui-widget" style="display:inline-block; width:200px">
-     </div> !-->
 
-=======
-  <%= text_field_tag :product_name, nil, :autocomplete => autocomplete_products_search_branch_orders_path %>
+      <% end  %>
 
-  <%= f.hidden_field :product_id, :id => 'product_id' %>
-  <!-- <div class="ui-widget" style="display:inline-block; width:200px">--!>
-    <%#= f.select(:product_id, Product.all.collect {|p|[p.sku + "  " + p.name, p.id]}, {:prompt => 'Selecciona un Producto'}, :class => "enp" )%>
-    <!--  </div>--!>
->>>>>>> cf24900d0b86ac1d05e97e489362ddf84bd4d5a8
-    <%= f.text_area :note, :rows=>"2", :placeholder=>'Agrega una Nota' %>
+<!-- Orden de tipo Cierre Muestra la existencia de cada producto -->
+  <% elsif action_name == "stock" %>
+    <%= f.text_field :quantity, :class=>"input-small", :placeholder=>'Cantidad' %>
+
+    <% if f.object.product_id  %>
+      <%= Product.find_by_id(f.object.product_id).name %>
+      <% precio = Product.find_by_id(f.object.product_id).price %>
+
+    <% end  %>
+
+  <% else %>
+    <%= f.text_field :quantity, :class=>"input-small", :placeholder=>'Cantidad', :value=>1 %>
+    <%= text_field_tag :product_name, nil, {:autocomplete => autocomplete_products_search_branch_orders_path, :class => "enp" }%>
+
+<!-- Orden de tipo entrada de proveedor puede modificar el campo precio de un producto-->
+    <% if action_name == "provision" %>
+      <%= f.text_field :price, :class=>"input-small", :placeholder=>'$' %>
+    <% end %>
+  <% end %>
+
+    <%= f.hidden_field :product_id, :id => 'product_id'  %>
+
+    <%= f.text_area :note, :rows=>"1", :placeholder=>'Agrega una Nota' %>
     <%= link_to_remove_fields "_", f %>
-
 </div>
 
 

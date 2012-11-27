@@ -5,11 +5,10 @@ class Order < ActiveRecord::Base
   attr_accessible :dealer, :destination, :atach, :user_id, :order_details_attributes, :mode, :product_id, :date, :status, :action, :branch_id, :isclose
   validates :mode, :destination, :presence => true
 
-
-
   accepts_nested_attributes_for :order_details
   accepts_nested_attributes_for :moves
 
+  MODES = ["1", "2", "3", "4", "5", "6"]
 
 after_create :update_stock
 before_save :create_atach
