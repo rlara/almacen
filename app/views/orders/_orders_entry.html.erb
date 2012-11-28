@@ -15,7 +15,8 @@
     <% end %>
     <td><%= ord.branch.name %></td>
     <td><%= link_to 'show', branch_mov_prod_path(@branch,ord), :class=>"btn btn-primary" %></td>
-    <td></td>
+    <td><%= link_to 'Delete', branch_order_path(@branch,ord), confirm: 'Estas seguro?', method: :delete, :class=>"btn btn-danger"%></td>
+
     <td></td>
   </tr>
 </tbody>
