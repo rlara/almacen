@@ -1,0 +1,6 @@
+es:
+  orders:
+    date_reports:
+      results:
+        one: "Se encontró un resultado"
+        other: "Se encontraron %{count} resultados"

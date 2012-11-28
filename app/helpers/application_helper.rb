@@ -10,4 +10,21 @@ def link_to_remove_fields(name, f)
     end
     link_to_function(name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")", :id=>"enterp")
   end
+  
+  def order_type_text(order_id)
+    case order_id
+      when "1"
+        return "Salida (Transferencia)"
+      when "2"
+        return "Entrada (Proveedor)"
+      when "3"
+        return "Entrada (Transferencia)"
+      when "4"
+        return "Cierre"
+      when "5"
+        return "Cierre (Entrada)"
+      when "6"
+        return "Cierre (Salida)"    
+    end
+  end
 end

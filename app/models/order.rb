@@ -14,6 +14,7 @@ class Order < ActiveRecord::Base
   after_create :update_stock
   before_save :create_atach
   before_destroy :delete_order
+  MODES = ["1", "2", "3", "4", "5", "6"]
 
 def create_atach
 #validar el campo atach

@@ -1,6 +1,6 @@
 <div class="fields" >
   <%= f.label "Cantidad", :class=>"control-label" %>
-  <!-- Orden de tipo entrada Transferencia --!>
+  <!-- Orden de tipo entrada Transferencia -->
   <% if action_name == "show" %>
       <%= f.text_field :quantity, :class=>"input-small", :placeholder=>'Cantidad' %>
 
@@ -12,7 +12,7 @@
 
       <% end  %>
 
-<!-- Orden de tipo Cierre Muestra la existencia de cada producto --!>
+<!-- Orden de tipo Cierre Muestra la existencia de cada producto -->
   <% elsif action_name == "stock" %>
     <%= f.text_field :quantity, :class=>"input-small", :placeholder=>'Cantidad' %>
 
@@ -26,7 +26,7 @@
     <%= f.text_field :quantity, :class=>"input-small", :placeholder=>'Cantidad', :value=>1 %>
     <%= text_field_tag :product_name, nil, {:autocomplete => autocomplete_products_search_branch_orders_path, :class => "enp" }%>
 
-<!-- Orden de tipo entrada de proveedor puede modificar el campo precio de un producto--!>
+<!-- Orden de tipo entrada de proveedor puede modificar el campo precio de un producto-->
     <% if action_name == "provision" %>
       <%= f.text_field :price, :class=>"input-small", :placeholder=>'$' %>
     <% end %>
@@ -42,3 +42,4 @@
     $("input.input-small:last").focus();
   });
 </script>
+

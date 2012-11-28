@@ -1,112 +1,143 @@
-<div style="margin:0px 10px 50px">
-  <h2>Sucursal : <%= @branch.name  %></h2>
-  <%= link_to 'Regresar', branch_path(@branch), :class=>"btn" %>
-</div>
+<style type="text/css">
+  #reports_form label {
+    display: inline;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  #reports_form span {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 
+  #see_report {
+    margin-bottom: 9px;
+    margin-left: 10px;
+  }
 
-<%= form_tag branch_date_reports_path(@branch), :method=>:get, :id =>'form', :class=>"form-inline" do %>
-    Inicio
-    <%= text_field_tag :date, @dstart %>
-    <script type="text/javascript">
-      $(document).ready(function () {
-        $('#date').datepicker();
-        $('#date').datepicker('option', {dateFormat: 'yy-mm-dd'});
-        $('#date').val("<%= @dstart%>");
-        });
-    </script>
+  #reports-title {
+    margin-bottom: 20px;
+  }
 
-    Fin
-    <%= text_field_tag :datend, @dend %>
+  #query-terms {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
 
-    Producto
-    <%= text_field_tag :product_name, @prodname, {:autocomplete => autocomplete_products_search_branch_orders_path, :class => "enp" }%>
+ #order-terms {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
 
-    <%= hidden_field_tag 'product_id',@prod, :id => 'product_id'  %>
+  #results-text {
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
 
-    <script type="text/javascript">
-    $(document).ready(function () {
-        $('#datend').datepicker();
-        $('#datend').datepicker('option', {dateFormat: 'yy-mm-dd'});
-        $('#datend').val("<%= @dend%>");
-        });
-    </script>
+</style>
 
-    <%= select_tag :type, options_for_select([["Salida(Transferencia)","1"],["Entrada(Proveedor)","2"],["Entrada(Transferencia)","3"],["Cierre","4"],["Cierre(Entrada)","5"],["Cierre(Salida)","6"]]), :prompt => "Tipo de movimeinto" %>
+<h2 id="reports-title">Sucursal : <%= link_to @branch.name, branch_path(@branch) %> </h2>
 
-    <%= select_tag :category, options_for_select(["SALSAS","VERDURAS","ABARROTES","GUISOS","REFRESCOS","CERVEZA"]), :prompt=> "Selecciona la Categoria"%>
+<p>Aconsejamos seleccionar al menos un criterio de búsqueda para la consulta</p>
 
-    <%= submit_tag 'Buscar', :class =>"btn btn-primary" %>
+<%= form_tag branch_date_reports_path(@branch), :method => :get, :id => "reports_form" do %>
+    <div id="query_terms">
+      Inicio
+      <%= text_field_tag :date_start, @date_start, :style => "width: 100px;" %>
+
+      Fin
+      <%= text_field_tag :date_end, @date_end, :style => "width: 100px;" %>
+
+      Producto
+      <%= text_field_tag :product_name, @product_name, {:autocomplete => autocomplete_products_search_branch_orders_path, :class => "enp" }%>
+      <%= hidden_field_tag 'product_id', @product_id, :id => 'product_id'  %>
+
+      <%= select_tag :order_type, options_for_select(Order::MODES.collect { |m| [order_type_text(m), m]}), :prompt => "Tipo de movimiento", :style => "width: 150px;" %>
+
+     <%= select_tag :product_category, options_for_select(Product::CATEGORY), :prompt=> "Categoría", :style => "width: 150px;" %>
+
+      <%= link_to 'Consultar', '#', :class => 'btn', :id => 'see_report' %>
+    </div>
+    <div id="order-terms">
+      <strong>Ordenar por:</strong>
+      <span>
+      Nombre de producto
+      <%= radio_button_tag "ob_product_name", "up", "up" == @ob_product_name %>
+      <%= label_tag "ob_product_name_up", "A - Z", :style => "width: 150px;" %>
+      <%= radio_button_tag "ob_product_name", "down", "down" == @ob_product_name %>
+      <%= label_tag "ob_product_name_down", "Z - A", :style => "width: 150px;" %> </span>|
+      Categoría
+      <%= radio_button_tag "ob_product_category", "up", "up" == @ob_product_category %>
+      <%= label_tag "ob_product_category_up", "A - Z", :style => "width: 150px;" %>
+      <%= radio_button_tag "ob_product_category", "down", "down" == @ob_product_category %>
+      <%= label_tag "ob_product_category_down", "Z - A", :style => "width: 150px;" %> |
+      Cantidad
+      <%= radio_button_tag "ob_amount", "up", "up" == @ob_amount %>
+      <%= label_tag "ob_amount_up", "A - Z", :style => "width: 150px;" %>
+      <%= radio_button_tag "ob_amount", "down", "down" == @ob_amount %>
+      <%= label_tag "ob_amount_down", "Z - A", :style => "width: 150px;" %>
+
+    </div>
+
   <% end %>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#form').submit(function() {
-          if($("#date").val().length < 1){
-          alert("La fecha inicial es obligatoria");
-          return false;
-          }
-          if($("#datend").val().length < 1){
-          alert("La fecha final es obligatoria");
-          return false;
-          }
-
-        });
-      });
-</script>
-
-
-
-<div class="span8">
-  <% unless @orders.empty? %>
-    <p>Fecha inicio: <%= @dstart %></p>
-    <p>Fecha fin: <%= @dend %></p>
-  <% end %>
-
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Producto</th>
-        <th>Categoria</th>
-        <th>Cantidad</th>
-        <th>TipoOrden</th>
-      </tr>
-    </thead>
-    <tbody>
-    <% unless @orders.nil? %>
-      <% @orders.each do |orden| %>
-<!--Buscar un producto en especifico--!>
-        <% unless @prod.blank? %>
-          <% var = OrderDetail.find_by_product_id_and_order_id(@prod,orden.id) %>
+<div>
+    <% if !@results.empty? %>
+      <div id="results-text"><%= t(".results", :count => @results.count) %></div>
+      <table class="table table-striped">
+        <thead>
           <tr>
-            <td><%= var.product.name  %></td>
-            <td><%= var.product.category  %></td>
-            <td><%= var.quantity  %></td>
-            <td><%= orden.mode  %></td>
+            <th># de Orden</th>
+            <th>Producto</th>
+            <th>Categoria</th>
+            <th>Cantidad</th>
+            <th>TipoOrden</th>
           </tr>
-        <% else %>
-          <% orden.order_details.each do |product| %>
-            <% unless @category.blank? %>
-<!--Validar que el usuario haya seleccionado una categoria --!>
-              <% if product.product.category == @category %>
-                <tr>
-                  <td><%= product.product.name %></td>
-                  <td><%= product.product.category %></td>
-                  <td><%= product.quantity %>
-                  <td><%= orden.mode  %></td>
-                </tr>
-              <% end %>
-            <% else %>
-              <tr>
-                <td><%= product.product.name %></td>
-                <td><%= product.product.category %></td>
-                <td><%= product.quantity %>
-                <td><%= orden.mode  %></td>
-              </tr>
-            <% end %>
-          <% end %>
+        </thead>
+        <tbody>
+
+        <% @results.each do |od| %>
+          <tr>
+            <td><%= link_to od.order_id, branch_mov_prod_path(@branch, od.order) %></td>
+            <td><%= od.product.name  %></td>
+            <td><%= od.product.category  %></td>
+            <td><%= od.quantity  %></td>
+            <td><%= order_type_text(od.order.mode)  %></td>
+          </tr>
         <% end %>
-      <% end %>
+
+        </tbody>
+      </table>
+    <% elsif params.length > 3 %>
+      <div id="results-text">No hay resultados para esta consulta</div>
     <% end %>
-    </tbody>
-  </table>
+
 </div>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#date_start').datepicker();
+    $('#date_start').datepicker('option', {dateFormat: 'yy-mm-dd'});
+    $('#date_start').val("<%= @date_start %>");
+
+    $('#date_end').datepicker();
+    $('#date_end').datepicker('option', {dateFormat: 'yy-mm-dd'});
+    $('#date_end').val("<%= @date_end %>");
+
+    $('form#reports_form a#see_report').click(function(e) {
+      e.preventDefault();
+      if ($("#product_name").val() == '') {
+        $("#product_id").val('');
+      }
+      $("form#reports_form").submit();
+    });
+
+    <% unless @product_category.blank? %>
+      $("#product_category").val("<%= @product_category %>");
+    <% end %>
+
+    <% unless @order_type.blank? %>
+      $("#order_type").val(<%= @order_type %>);
+    <% end %>
+
+  });
+</script>
