@@ -1,4 +1,5 @@
 <div class="span6">
+
   <p>
     <b>Origen:</b>
     <%= @order.branch.name %>
@@ -16,30 +17,38 @@
   </p>
 
   <h3>Productos</h3>
-  <div class="well">
 
+  <table class="table">
+    <tr>
+      <th>Cantidad</th>
+      <th>Nombre</th>
+      <% if @order.mode =="3" %>
+        <th>Diferencia</th>
+      <% else %>
+      <% end %>
+      <th>Nota</th>
+    </tr>
     <% for order_detail in @order.order_details %>
-      <p>
-      <td><b>Cantidad:</b><%= order_detail.quantity  %></td>
+    <tr>
+      <td><%= order_detail.quantity  %></td>
       <td><%= order_detail.product.name  %></td>
+
       <% if @order.mode == "3" %>
         <% @dif = OrderDetail.find_by_order_id_and_product_id(@dif_ord.id,order_detail.product_id) %>
-        <% if @dif.nil? %>
-
-        <% else %>
-          <td><b>Diferencia:</b><%= order_detail.quantity - @dif.quantity %></td>
+        <% unless @dif.nil? %>
+          <td><%= order_detail.quantity - @dif.quantity %></td>
         <% end %>
-        <td><b> Nota: <%= order_detail.note %> </b></td>
       <% end %>
-    </p>
+      <td><%= order_detail.note %></td>
+    </tr>
     <% end %>
-
+    </table>
     <p>
       Total : $
       <%= @total%>
     </p>
-  </div>
-       <%= link_to 'Aceptar', branch_path(@branch), :class=>"btn" %>
+
+    <%= link_to 'Aceptar', branch_path(@branch), :class=>"btn" %>
 
 </div>
 
