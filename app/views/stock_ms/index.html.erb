@@ -1,0 +1,52 @@
+<div style="padding:20px 0 30px">
+<h1>Inventario Mínimo</h1>
+</div>
+<% if @minimums.empty?  %>
+  <h3> </h3>
+<% else %>
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th>Sucursal</th>
+    <th>Dia</th>
+    <th>Producto</th>
+    <th>Cantidad</th>
+    <th></th>
+    <th></th>
+  </tr>
+</thead>
+<tbody>
+<% @minimums.each do |min| %>
+  <tr>
+    <td><%= Branch.find(min.branch_id).name %></td>
+    <% if min.day == 1 %>
+      <td>Lunes</td>
+    <% elsif min.day == 2 %>
+      <td>Martes</td>
+    <% elsif min.day == 3 %>
+      <td>Miercoles</td>
+    <% elsif min.day == 4 %>
+      <td>Jueves</td>
+    <% elsif min.day == 5 %>
+      <td>Viernes</td>
+    <% elsif min.day == 6 %>
+      <td>Sabado</td>
+    <% elsif min.day == 7 %>
+      <td>Domingo</td>
+    <% end %>
+    <td><%= Product.find(min.product_id).name %></td>
+    <td><%= min.quantity %></td>
+    <td><%= link_to 'Edit', edit_stock_m_path(min), :class=>"btn btn-primary"%></td>
+    <td><%= link_to 'Destroy', stock_m_path(min), confirm: 'Are you sure?', method: :delete, :class=>"btn btn-danger" %></td>
+  </tr>
+</tbody>
+<% end %>
+</table>
+
+<br />
+<% end %>
+  <%= link_to 'Nuevo Registro', new_stock_m_path, :class=>"btn btn-primary" %>|
+  <%= link_to 'Regresar', branches_path, :class=>"btn"  %>
+
+
+
