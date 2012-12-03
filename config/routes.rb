@@ -1,18 +1,21 @@
 Almacen::Application.routes.draw do
 
-  get "stockms/new" => "stockm#new", :as => 'new_stockm'
+  resources :stock_ms do
+    get :autocomplete_products_search, :on => :collection
+  end
+ # get "stockms/new" => "stockm#new", :as => 'new_stockm'
 
-  get "stockms/:id/edit" => "stockm#edit", :as => 'edit_stockm'
+ # get "stockms/:id/edit" => "stockm#edit", :as => 'edit_stockm'
 
-  get "stockms/:id" => "stockm#show", :as => 'stockm'
+ # get "stockms/:id" => "stockm#show", :as => 'stockm'
 
-  get "stock_ms" => "stockm#index"
+ # get "stock_ms" => "stockm#index"
 
-  post "stock_ms" => 'stockm#create'
+ # post "stock_ms" => 'stockm#create'
 
-  put "stock_ms/:id" => 'stockm#update'
+ # put "stock_ms/:id" => 'stockm#update'
 
-  delete "stock_ms/:id" => 'stockm#destroy', :as =>'stockdelete'
+ # delete "stock_ms/:id" => 'stockm#destroy', :as =>'stockdelete'
 
   devise_for :admins
 
