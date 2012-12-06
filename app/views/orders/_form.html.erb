@@ -1,7 +1,7 @@
 
 <%= form_for([@branch, @order],:html=>{:class=>"well form-inline"}) do |f| %>
   <% if @order.errors.any? %>
-      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this transfer from being saved:</h2>
+      <h2><%= pluralize(@order.errors.count, "error") %></h2>
 
       <ul>
       <% @order.errors.full_messages.each do |msg| %>
@@ -33,8 +33,9 @@
     $(document).ready(function () {
         $('#order_date').datepicker();
         $('#order_date').datepicker('option', {dateFormat: 'yy-mm-dd'});
-        $("#startDate").datepicker({dateFormat: 'yy-mm-dd'});
-
+        var myDate = new Date();
+        var prettyDate = myDate.getFullYear() + '-' + (myDate.getMonth()+1) + '-' + myDate.getDate();
+        $('#order_date').val(prettyDate);
     });
   </script>
 

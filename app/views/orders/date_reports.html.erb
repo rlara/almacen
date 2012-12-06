@@ -38,6 +38,7 @@
 
 <h2 id="reports-title">Sucursal : <%= link_to @branch.name, branch_path(@branch) %> </h2>
 
+<h2 ><%= link_to 'Export', url_for(params.merge(:format => "csv"))%></h2>
 <p>Aconsejamos seleccionar al menos un criterio de búsqueda para la consulta</p>
 
 <%= form_tag branch_date_reports_path(@branch), :method => :get, :id => "reports_form" do %>
@@ -91,7 +92,9 @@
             <th>Producto</th>
             <th>Categoria</th>
             <th>Cantidad</th>
+            <th>Unidades</th>
             <th>TipoOrden</th>
+            <th>Precio Total</th>
           </tr>
         </thead>
         <tbody>
@@ -102,7 +105,10 @@
             <td><%= od.product.name  %></td>
             <td><%= od.product.category  %></td>
             <td><%= od.quantity  %></td>
-            <td><%= order_type_text(od.order.mode)  %></td>
+            <td><%= od.product.units %></td>
+            <td><%= od.order.order_type_text %></td>
+            <% precio = od.quantity*od.product.price  %>
+            <td><%= precio %></td>
           </tr>
         <% end %>
 

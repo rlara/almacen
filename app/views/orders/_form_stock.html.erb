@@ -40,7 +40,9 @@
     <form class="well form-inline">
 
       <%= f.fields_for :order_details do |builder|  %>
+        <table>
         <%= render 'order_detail_fields', {:f => builder} %>
+        </table>
       <% end %>
     </form>
       <div id="onenter">

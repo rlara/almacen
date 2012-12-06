@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+require 'csv'
+
 autocomplete :products_search, {:product => [:name, :sku]}
 
  before_filter :get_branch
@@ -50,13 +52,46 @@ autocomplete :products_search, {:product => [:name, :sku]}
     @ob_amount = params[:ob_amount]
 
     @results = Array.new
-    if params.length > 3
-      @results = OrderDetail.search(params)
-    end
 
     respond_to do |format|
-      format.html
+      format.html do
+        if params.length > 3
+          @results = OrderDetail.search(params)
+        end
+      end
+
       format.json {render json: @orders_r}
+      format.csv do
+
+        @results = OrderDetail.search(params)
+        logger.debug "Parametros" if  params.empty?
+        report_csv = CSV.generate(encoding: "UTF-8") do |csv|
+          csv << ['# de Orden', 'Producto', 'Categoria', 'Cantidad', 'Unidades', 'TipoOrden', 'PrecioTotal']
+
+          @results.each do |r|
+            order = r.order_id
+            productname = r.product.name
+            productcat = r.product.category
+            quantity = r.quantity
+            unidad = r.product.units
+            mode = r.order.order_type_text
+            var = r.quantity*r.product.price
+            precio = var
+
+            @row = Array.new
+            @row << order
+            @row << productname
+            @row << productcat
+            @row << quantity
+            @row << unidad
+            @row << mode
+            @row << precio
+            csv << @row
+          end
+        end
+          filename = "report.csv"
+          send_data report_csv, :disposition => "atachment;filename=#{filename}"
+      end
     end
   end
 

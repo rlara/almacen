@@ -136,6 +136,23 @@ def create_atach
         prod.destroy
     end
   end
+##
+  def order_type_text
+    case self.mode
+      when "1"
+        return "Salida (Transferencia)"
+      when "2"
+        return "Entrada (Proveedor)"
+      when "3"
+        return "Entrada (Transferencia)"
+      when "4"
+        return "Cierre"
+      when "5"
+        return "Cierre (Entrada)"
+      when "6"
+        return "Cierre (Salida)"
+    end
+  end
 
 end
 
