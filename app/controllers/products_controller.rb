@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_filter :authenticate_any!, :except
+  before_filter :authenticate_any!, :except => "index"
 
   def authenticate_any!
     if admin_signed_in?
