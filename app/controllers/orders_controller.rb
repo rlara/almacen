@@ -3,12 +3,22 @@ require 'csv'
 
 autocomplete :products_search, {:product => [:name, :sku]}
 
- before_filter :get_branch
+before_filter :authenticate_any!
+
+before_filter :get_branch
 #Obtener la sucursal
   def get_branch
     @branch = Branch.find(params[:branch_id])
   end
 
+#Validar usuarios
+  def authenticate_any!
+    if admin_signed_in?
+      true
+    else
+      authenticate_user!
+    end
+  end
 
 
   # GET /orders

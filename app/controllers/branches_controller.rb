@@ -1,9 +1,20 @@
 class BranchesController < ApplicationController
+
+before_filter :authenticate_any!
+
+
+def authenticate_any!
+  if admin_signed_in?
+    true
+  else
+    authenticate_user!
+  end
+end
+
 # GET /branches
   # GET /branches.json
   def index
     @branches = Branch.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @branches }

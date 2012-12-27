@@ -1,4 +1,14 @@
 class ProductsController < ApplicationController
+  before_filter :authenticate_any!, :except
+
+  def authenticate_any!
+    if admin_signed_in?
+      true
+    else
+      authenticate_user!
+    end
+  end
+
   # GET /products
   # GET /products.json
   def index
