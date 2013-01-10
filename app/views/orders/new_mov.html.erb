@@ -12,6 +12,11 @@
   <% end %>
 
   <p>
+    <b>Fecha creación:</b>
+    <%= @order.date %>
+  </p>
+
+  <p>
     <b>Hora creación:</b>
     <%= @order.created_at.strftime("%I:%M %P") %>
   </p>

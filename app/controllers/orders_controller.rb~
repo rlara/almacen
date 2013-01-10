@@ -1,12 +1,24 @@
 class OrdersController < ApplicationController
+require 'csv'
+
 autocomplete :products_search, {:product => [:name, :sku]}
 
- before_filter :get_branch
+before_filter :authenticate_any!
+
+before_filter :get_branch
 #Obtener la sucursal
   def get_branch
     @branch = Branch.find(params[:branch_id])
   end
 
+#Validar usuarios
+  def authenticate_any!
+    if admin_signed_in?
+      true
+    else
+      authenticate_user!
+    end
+  end
 
 
   # GET /orders
@@ -34,32 +46,62 @@ autocomplete :products_search, {:product => [:name, :sku]}
 
 # Ver el Reporte por Fechas, de 1 o varios productos y por tipo de orden
   def date_reports
-  
-   logger.debug "Hay " + params.length.to_s + " parametros "
-
     # Parámetros de búsqueda
     @date_start = params[:date_start]
     @date_end = params[:date_end]
     @product_id = params[:product_id]
     @order_type = params[:order_type]
     @product_category = params[:product_category]
-    
+
     # Nombre del producto en caso exista
     @product_name = @product_id.blank? ? '' : Product.find(@product_id).name
-    
+
     # Parámetros de ordenamiento
     @ob_product_name = params[:ob_product_name]
     @ob_product_category = params[:ob_product_category]
     @ob_amount = params[:ob_amount]
-    
+
     @results = Array.new
-    if params.length > 1
-      @results = OrderDetail.search(params)
-    end
-         
+
     respond_to do |format|
-      format.html
+      format.html do
+        if params.length > 3
+          @results = OrderDetail.search(params)
+        end
+      end
+
       format.json {render json: @orders_r}
+      format.csv do
+
+        @results = OrderDetail.search(params)
+        logger.debug "Parametros" if  params.empty?
+        report_csv = CSV.generate(encoding: "UTF-8") do |csv|
+          csv << ['# de Orden', 'Producto', 'Categoria', 'Cantidad', 'Unidades', 'TipoOrden', 'PrecioTotal']
+
+          @results.each do |r|
+            order = r.order_id
+            productname = r.product.name
+            productcat = r.product.category
+            quantity = r.quantity
+            unidad = r.product.units
+            mode = r.order.order_type_text
+            var = r.quantity*r.product.price
+            precio = var
+
+            @row = Array.new
+            @row << order
+            @row << productname
+            @row << productcat
+            @row << quantity
+            @row << unidad
+            @row << mode
+            @row << precio
+            csv << @row
+          end
+        end
+          filename = "report.csv"
+          send_data report_csv, :disposition => "atachment;filename=#{filename}"
+      end
     end
   end
 
@@ -192,7 +234,7 @@ autocomplete :products_search, {:product => [:name, :sku]}
     @order.destroy
 
     respond_to do |format|
-      format.html { redirect_to orders_url }
+      format.html { redirect_to branch_path(@branch) }
       format.json { head :no_content }
     end
   end

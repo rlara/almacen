@@ -4,39 +4,81 @@
   <title>Almacen</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
 </head>
 <body>
- <header>
+<header>
 <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">Almacen Tacos Mode</a>
+      <%= link_to 'Almacen TacosMode', nil , :class=>"brand", :style => 'color:white;'  %>
       <div class="nav-collapse">
         <ul class="nav">
-          <li class="active">
-            <%= link_to 'Home', branches_path  %>
-          </li>
+          <% if user_signed_in? %>
+            <% if current_user.admin? %>
+              <li class="active">
+                <%= link_to 'Home', branches_path%>
+              </li>
+            <% else %>
+            <% end %>
+          <% elsif admin_signed_in? %>
+            <li class="active">
+              <%= link_to 'Home', branches_path%>
+            </li>
+            <li><%= link_to 'Inventario Minimo', stock_ms_path  %></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sucursales<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <% @branches = Branch.all %>
+                <% @branches.each do |branch| %>
+                  <% unless branch.provider == true %>
+                    <%= link_to branch.name, branch_path(branch.id) %>
+                  <% end %>
+                <% end %>
+              </ul>
+            </li>
 
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <% @branches = Branch.all %>
+                <% @branches.each do |branch| %>
+                  <% unless branch.provider == true %>
+                    <%= link_to branch.name, branch_date_reports_path(branch.id) %>
+                  <% end %>
+                <% end %>
+              </ul>
+            </li>
+
+          <% end %>
           <li >
             <%= link_to 'Productos', products_path %>
           </li>
-
-          <li>
-          </li>
-
-
         </ul>
         <ul class="nav pull-right">
-          <li>
-            <a href="#">Sign in</a>
-          </li>
+          <% if user_signed_in? %>
+            <li><a><%= current_user.email %></a></li>
+            <li><%= link_to "Salir Usuario", destroy_user_session_path, :method => :delete  %></li>
+          <% else %>
+            <% unless admin_signed_in? %>
+              <li><%= link_to 'Iniciar sesion', new_user_session_path  %></li>
+            <% end %>
+          <% end %>
+
+          <% if admin_signed_in? %>
+            <li><a><%= current_admin.email  %></a></li>
+            <li><%= link_to 'Usuarios', pagehome_users_path %></li>
+            <li><%= link_to 'Salir administrador', destroy_admin_session_path, :method => :delete  %></li>
+          <% else %>
+          <% end %>
+
         </ul>
       </div>
 
     </div>
   </div>
 </div>
- </header>
+</header>
 
  <div class="container-fluid">
 <%= yield %>
