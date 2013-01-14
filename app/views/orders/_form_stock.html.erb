@@ -50,7 +50,9 @@
       </div>
 
   <div class="form-actions">
+  <% if @o_close.nil? %>
     <%= f.submit 'Guardar', :class=>"btn btn-primary", :confirm => 'Confirmar el cierre'%>
+  <% end %>
     <%= link_to 'Regresar', branch_path(@branch), :class=>"btn" %>
   </div>
   </fieldset>

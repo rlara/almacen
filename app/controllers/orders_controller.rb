@@ -176,6 +176,7 @@ before_filter :get_branch
   #  Crear cierre /orders/provision
   def stock
     @order = Order.new
+    @o_close = @branch.orders.find_by_mode_and_date("4",Date.today)
     @moves = Move.where(:branch_id => params[:branch_id])
     @moves.each do |m|
       product_stock = @order.order_details.build
