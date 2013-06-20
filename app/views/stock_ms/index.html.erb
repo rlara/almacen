@@ -18,7 +18,9 @@
 <tbody>
 <% @minimums.each do |min| %>
   <tr>
-    <td><%= Branch.find(min.branch_id).name %></td>
+    <% sucursal = Branch.find_by_id(min.branch_id) %>
+    <% unless sucursal.nil? %>
+    <td><%= sucursal.name %></td> 
     <% if min.day == 1 %>
       <td>Lunes</td>
     <% elsif min.day == 2 %>
@@ -38,6 +40,7 @@
     <td><%= min.quantity %></td>
     <td><%= link_to 'Edit', edit_stock_m_path(min), :class=>"btn btn-primary"%></td>
     <td><%= link_to 'Destroy', stock_m_path(min), confirm: 'Are you sure?', method: :delete, :class=>"btn btn-danger" %></td>
+    <% end %>
   </tr>
 </tbody>
 <% end %>
