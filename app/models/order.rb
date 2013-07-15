@@ -108,7 +108,7 @@ def create_atach
   end
 
 #Repartidores en una orden de entrada y salida de transferencia
-  DEALER = ['Roberto','Sergio','Carlos']
+  DEALER = ['Ismael Guzman','Ricardo Hernandez','Luis Lopez']
 
   class << self
     DEALER.each do |dealer|
@@ -148,9 +148,9 @@ def create_atach
       when "4"
         return "Cierre"
       when "5"
-        return "Cierre (Entrada)"
-      when "6"
         return "Cierre (Salida)"
+      when "6"
+        return "Cierre (Entrada)"
     end
   end
 

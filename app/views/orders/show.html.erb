@@ -92,9 +92,14 @@
 
 
   <div class="control-group">
-  <%= f.label 'Destino Entrada', :class=>"control-label" %>
-  <%= f.collection_select(:destination, Branch.all, :id,:name,:selected => @order.branch_id) %>
-
+  <% if @order.mode == '1' %>
+    <%= f.label 'Repartidor', :class=>"control-label" %>
+    <%= f.hidden_field :destination, :value => @order.branch.name %>
+  <% else %> 
+    <%= f.label 'Destino Entrada', :class=>"control-label" %>    
+    <%= f.collection_select(:destination, Branch.all, :id,:name,:selected => @order.branch_id) %>
+  <% end %>
+  
   <%= f.select(:dealer, Order::DEALER.collect {|cat| [cat,cat] },{:prompt=>'Selecciona el Repartidor', :selected => @order.dealer })%>
 
   <%= f.text_field :date, :value => @order.date %>
