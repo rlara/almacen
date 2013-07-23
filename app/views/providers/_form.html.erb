@@ -14,10 +14,10 @@
     <%= f.hidden_field :mode, :value => '2'  %>
     <%= f.hidden_field :status, :value => 'pending'  %>
   <div class="control-group">
-  <%= f.label 'Proveedor', :class=>"control-label" %>
+  <%= f.label 'Pr', :class=>"control-label" %>
       <%= f.collection_select(:destination, Branch.all, :id, :name) %>
 
-  <%= f.label 'Repartidor', :class=>"control-label" %>
+  <%= f.label 'Repart', :class=>"control-label" %>
       <%= f.select(:dealer, Order::DEALER.collect {|cat| [cat,cat] },{:include_blank=>true}) %>
 
     <%= f.label 'Fecha', :class=>"control-label" %>

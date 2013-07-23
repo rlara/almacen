@@ -1,26 +1,28 @@
 <div class="fields" >
-  <%= f.label "Cantidad", :class=>"control-label" %>
+  
   <!-- Orden de tipo entrada Transferencia -->
   <% if action_name == "show" %>
-    <%= f.text_field :quantity, :class=>"input-small", :placeholder=>'Cantidad' %>
     <% if f.object.product_id  %>
       <label style="width:130px"><%= Product.find_by_id(f.object.product_id).name %></label>
+      <label style="width:50px"><%= Product.find_by_id(f.object.product_id).units %></label>
     <% else %>
       <%= text_field_tag :product_name, nil, {:autocomplete => autocomplete_products_search_branch_orders_path, :class => "enp" }%>
     <% end  %>
-
+    <%= f.label "Cantidad", :class=>"control-label" %>
+    <%= f.text_field :quantity, :class=>"input-small", :placeholder=>'Cantidad' %>
     <!-- Orden de tipo Cierre Muestra la existencia de cada producto -->
   <% elsif action_name == "stock" %>
-    <%= f.text_field :quantity, :class=>"input-small", :placeholder=>'Cantidad' %>
     <% if f.object.product_id  %>
       <label style = "width:150px"><%= Product.find_by_id(f.object.product_id).name %></label>
       <% precio = Product.find_by_id(f.object.product_id).price %>
+      <label style="width:50px"><%= Product.find_by_id(f.object.product_id).units %></label>
     <% end  %>
-
+    <%= f.label "Cantidad", :class=>"control-label" %>
+    <%= f.text_field :quantity, :class=>"input-small", :placeholder=>'Cantidad' %>
   <% else %>
-    <%= f.text_field :quantity, :class=>"input-small", :placeholder=>'Cantidad', :value=>1 %>
     <%= text_field_tag :product_name, nil, {:autocomplete => autocomplete_products_search_branch_orders_path, :class => "enp" }%>
-
+    <%= f.label "Cantidad", :class=>"control-label" %>
+    <%= f.text_field :quantity, :class=>"input-small", :placeholder=>'Cantidad', :value=>1 %>
     <!-- Orden de tipo entrada de proveedor puede modificar el campo precio de un producto-->
     <% if action_name == "provision" %>
       <%= f.text_field :price, :class=>"input-small", :placeholder=>'$' %>
