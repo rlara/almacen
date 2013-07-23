@@ -12,11 +12,14 @@
         <td>Cierre</td>
     <% elsif ord.mode == "5" %>
         <td>Cierre(salida)</td>
+    <% elsif ord.mode == "6" %>
+        <td>Cierre(entrada)</td
     <% end %>
     <td><%= ord.branch.name %></td>
+    <td><%= ord.date %></td>
+    <td></td>
     <td><%= link_to 'show', branch_mov_prod_path(@branch,ord), :class=>"btn btn-primary" %></td>
     <td><%= link_to 'Delete', branch_order_path(@branch,ord), confirm: 'Estas seguro?', method: :delete, :class=>"btn btn-danger"%></td>
-
     <td></td>
   </tr>
 </tbody>

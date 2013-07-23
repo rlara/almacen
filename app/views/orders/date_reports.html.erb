@@ -95,6 +95,7 @@
             <th>Unidades</th>
             <th>TipoOrden</th>
             <th>Precio Total</th>
+            <th>Fecha</th>
           </tr>
         </thead>
         <tbody>
@@ -109,6 +110,7 @@
             <td><%= od.order.order_type_text %></td>
             <% precio = od.quantity*od.product.price  %>
             <td><%= precio %></td>
+            <td><%= od.order.date %></td> 
           </tr>
         <% end %>
 

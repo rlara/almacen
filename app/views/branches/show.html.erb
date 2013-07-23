@@ -31,16 +31,13 @@
           <br/>
           <li><%=link_to "Entrada-Proveedor", provision_path(@branch), :class=>"btn btn-success" %></li>
           <br/>
-
           <li><%=link_to "Cierre del dia", stock_path(@branch), :class=>"btn btn-primary", :style => "width:100px" %></li>
-
           <br/>
           <li><%=link_to "Lista de Ordenes", branch_orders_path(@branch), :class=>"btn btn-primary" %></li>
           <br/>
           <li><%=link_to "Reporte del dia", branch_report_day_path(@branch), :class=>"btn btn-primary", :style => "width:100px" %></li>
           <br/>
           <li><%=link_to "Reporte por periodo", branch_date_reports_path(@branch), :class=>"btn btn-primary" %></li>
-
         </ul>
   </div>
 </form>
@@ -51,14 +48,16 @@
         <h1>Últimos Movimientos</h1>
       </div>
         <h3 style = "color:gray">Salidas</h3>
-    <table class="table table-condensed">
-    <thead>
-      <tr>
-        <th>Tipo movimiento</th>
-        <th>Sucursal</th>
-        <th>Destino</th>
-      </tr>
-    </thead>
+        <table class="table table-condensed">
+          <thead>
+            <tr>
+              <th>Tipo movimiento</th>
+              <th>Sucursal</th>
+              <th>Destino</th>
+              <th>Fecha</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
           <%= render :partial => "orders/orders_partial", :locals => {:list_ord => @orders}%>
         </table>
 
@@ -68,7 +67,9 @@
             <tr>
               <th>Tipo Movimiento</th>
               <th>Sucursal</th>
-              <th>Detalle orden</th>
+              <th>Fecha</th>
+              <th></th>
+              <th>Acciones</th>
             </tr>
           </thead>
 

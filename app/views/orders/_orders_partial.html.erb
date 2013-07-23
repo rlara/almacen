@@ -1,9 +1,22 @@
 <% list_ord.each do |ord| %>
 <tbody>
   <tr>
-    <td><%= ord.mode %></td>
+    <% if ord.mode == "1" %>
+        <td>Salida</td>
+    <% elsif ord.mode == "3" %>
+        <td>Entrada(Transferencia)</td>
+    <% elsif ord.mode == "2" %>
+        <td>Entrada(Proveedor)</td>
+    <% elsif ord.mode == "4" %>
+        <td>Cierre</td>
+    <% elsif ord.mode == "5" %>
+        <td>Cierre(salida)</td>
+    <% elsif ord.mode == "6" %>
+        <td>Cierre(entrada)</td
+    <% end %>  
     <td><%= ord.branch.name  %></td>
     <td><%= Branch.find_by_id(ord.destination).name %></td>
+    <td><%= ord.date %></td>
     <td><%= link_to 'Show', branch_mov_prod_path(@branch,ord), :class=>"btn btn-primary"%></td>
     <% if ord.status == 'pending' %>
     <td><%= link_to 'Delete', branch_order_path(@branch,ord), confirm: 'Estas seguro?', method: :delete, :class=>"btn btn-danger"%></td>

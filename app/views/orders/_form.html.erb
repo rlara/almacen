@@ -20,7 +20,7 @@
       <% end %>
 
   <div class="control-group">
-  <%= f.label 'Destino Entrada', :class=>"control-label" %>
+  <%= f.label 'Hacia la Sucursal', :class=>"control-label" %>
   <%= f.collection_select(:destination, Branch.all, :id, :name) %>
 
   <%= f.label 'Repartidor', :class=>"control-label" %>
