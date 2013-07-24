@@ -1,16 +1,28 @@
 <div class="span6">
 
-  <p>
-    <b>Origen:</b>
-    <%= @order.branch.name %>
-  </p>
-  <% if @order.isclose == false %>
-  <p>
-    <b>Destino:</b>
-    <%= Branch.find_by_id(@order.destination).name %>
-  </p>
+  <% if @order.mode == '3'%>
+    <% if @order.isclose == false %>
+      <p>
+      <b>Origen:</b>
+      <%= Branch.find_by_id(@order.destination).name %>
+      </p>
+    <% end %>
+    <p>
+      <b>Destino:</b>
+      <%= @order.branch.name %>
+    </p>
+  <% else %>
+    <p>
+      <b>Origen:</b>
+      <%= @order.branch.name %>
+    </p>
+    <% if @order.isclose == false %>
+      <p>
+        <b>Destino:</b>
+        <%= Branch.find_by_id(@order.destination).name %>
+      </p>
+    <% end %>
   <% end %>
-
   <p>
     <b>Fecha creación:</b>
     <%= @order.date %>

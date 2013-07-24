@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121123220040) do
+ActiveRecord::Schema.define(:version => 20130724162218) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(:version => 20121123220040) do
     t.integer  "product_id"
     t.integer  "order_id"
     t.integer  "branch_id"
-    t.integer  "existence"
+    t.decimal  "existence"
     t.datetime "date_move"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(:version => 20121123220040) do
   create_table "order_details", :force => true do |t|
     t.integer  "order_id"
     t.integer  "product_id"
-    t.integer  "quantity"
+    t.decimal  "quantity"
     t.text     "note"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
