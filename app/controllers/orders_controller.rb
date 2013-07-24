@@ -25,6 +25,7 @@ before_filter :get_branch
   # GET /orders.json
   def index
     @orders = @branch.orders.limit(100).paginate(:page=>params[:page], :per_page=>20)
+    logger.debug @orders.inspect
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @orders }
