@@ -22,9 +22,9 @@ def link_to_remove_fields(name, f)
       when "4"
         return "Cierre"
       when "5"
-        return "Cierre (Entrada)"
+        return "Cierre (Salida)"
       when "6"
-        return "Cierre (Salida)"    
+        return "Cierre (Entrada)"    
     end
   end
 end
