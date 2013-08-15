@@ -16,6 +16,8 @@
       <label style = "width:150px"><%= Product.find_by_id(f.object.product_id).name %></label>
       <% precio = Product.find_by_id(f.object.product_id).price %>
       <label style="width:50px"><%= Product.find_by_id(f.object.product_id).units %></label>
+    <% else %>
+      <%= text_field_tag :product_name, nil, {:autocomplete => autocomplete_products_search_branch_orders_path, :class => "enp" }%>
     <% end  %>
     <%= f.label "Cantidad", :class=>"control-label" %>
     <%= f.text_field :quantity, :class=>"input-small", :placeholder=>'Cantidad' %>
