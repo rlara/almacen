@@ -15,7 +15,7 @@
         <td>Cierre(entrada)</td
     <% end %>  
     <td><%= ord.branch.name  %></td>
-    <td><%= Branch.find_by_id(ord.destination).name %></td>
+    <td><%= Branch.find_by_id(ord.destination).name unless Branch.find_by_id(ord.destination).nil? %></td>
     <td><%= ord.date %></td>
     <td><%= link_to 'Show', branch_mov_prod_path(@branch,ord), :class=>"btn btn-primary"%></td>
     <% if ord.status == 'pending' %>
